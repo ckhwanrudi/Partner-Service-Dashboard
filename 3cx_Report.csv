@@ -17212,3 +17212,9 @@ StartTime,Direction,TalkingDuration,Answered,CallType,CallID,Status,To
 2026-09-07T14:58:16.030214+07:00,Inbound,PT7M45.715319S,True,Extension,1,Answered,0113
 2026-09-07T14:58:15.809165+07:00,Inbound Queue,PT2.21486S,True,Queue,1,Waiting,8196
 2026-09-07T17:46:27.367277+07:00,Internal,PT3.412621S,True,System,1,Answered,*31
+2026-09-08T09:53:33.008722+07:00,Internal,PT3.51242S,True,System,1,Answered,*31
+2026-09-08T09:52:59.73023+07:00,Internal,PT3.4174S,True,System,1,Answered,*30
+2026-09-08T09:53:24.51839+07:00,Inbound Queue,PT2.264076S,True,Queue,1,Waiting,8048
+2026-09-08T09:52:50.382496+07:00,Inbound,PT32.212101S,True,Extension,1,Answered,0112
+2026-09-08T09:52:50.157811+07:00,Inbound Queue,PT2.132451S,True,Queue,1,Waiting,8196
+2026-09-08T09:00:03.476658+07:00,Internal,PT3.313101S,True,System,1,Answered,*30
