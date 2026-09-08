@@ -274,6 +274,21 @@ input[type=file]{display:none}
 .wk-month-btn.on,.wk-week-btn.on{background:var(--primary);border-color:var(--primary);color:#fff}
 .wk-week-btn.overview{background:var(--primary-l);border-color:var(--primary);color:var(--primary)}
 .wk-week-btn.overview.on{background:var(--primary);color:#fff}
+/* ── ข้อความบอกจำนวนเดือนที่เลือก (เลือกได้หลายเดือน) ── */
+.wk-month-count{font-size:11px;color:var(--gray);align-self:center;margin-left:4px}
+/* ── Filter เลือกสัปดาห์ (แทนแถวปุ่ม W19..W37 เดิม) ── */
+.wk-week-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.wk-week-filter-lbl{font-size:11.5px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
+#wk-week-sel{font-size:11.5px;font-weight:600;padding:6px 12px;min-width:210px;
+  border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--primary-d);
+  cursor:pointer;font-family:'CPN','Inter',sans-serif;transition:.15s}
+#wk-week-sel:hover{border-color:var(--primary)}
+#wk-week-sel:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+#wk-week-sel.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.wk-week-filter-note{font-size:11px;color:var(--gray)}
+.wk-week-reset{font-size:11px;font-weight:600;color:var(--primary);background:none;border:none;
+  cursor:pointer;font-family:'CPN','Inter',sans-serif;padding:2px 4px}
+.wk-week-reset:hover{text-decoration:underline}
 
 .wk-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:9px;margin-bottom:12px}
 .wk-kpi{background:#fff;border-radius:14px;padding:12px 14px;border:1px solid var(--border);
@@ -380,6 +395,512 @@ input[type=file]{display:none}
 body.has-data .upload-zone{display:none!important}
 body.has-data #fbar{display:flex!important}
 body.has-data #tab-bar{display:flex!important}
+
+/* ═══════════════════════════════════════════════════════════════
+   MONTHLY FONT +2px  —  ขยายฟอนต์เฉพาะหน้า "รายเดือน" (#page-monthly)
+   • บล็อกนี้ครอบเฉพาะหน้ารายเดือน หน้าอื่นไม่กระทบ
+   • ต้องการกลับขนาดเดิม: ลบบล็อกนี้ทั้งก้อน
+   • ต้องการเพิ่ม/ลดอีก: แก้ตัวเลข px ในบล็อกนี้
+   ═══════════════════════════════════════════════════════════════ */
+/* ฐาน: ข้อความที่ไม่ได้กำหนดขนาดไว้ (body = 13px) */
+#page-monthly{font-size:15px}
+
+/* 1) ขนาดที่มาจาก class */
+#page-monthly .m-mode-btn{font-size:14px}
+#page-monthly .m-kpi .mlabel{font-size:12px}
+#page-monthly .m-kpi .mval{font-size:25px}   /* 22 +2 แล้ว +1 อีก = 25px */
+#page-monthly .m-kpi .msub{font-size:13px}
+#page-monthly .m-card-title{font-size:12px}
+#page-monthly .m-trend-labels{font-size:12px}
+#page-monthly .m-sec{font-size:12px}
+#page-monthly .m-tbl{font-size:14px}
+#page-monthly .m-tbl th{font-size:13px}
+#page-monthly .m-legend-item{font-size:14px}
+#page-monthly .pareto-bar-lbl{font-size:12px}
+#page-monthly .pareto-foot{font-size:12px}
+#page-monthly .tbl{font-size:14px}
+#page-monthly .tbl th{font-size:13px}
+#page-monthly .sec{font-size:13px}
+#page-monthly .empty{font-size:14px}
+#page-monthly .note{font-size:13.5px}
+
+/* 2) ขนาดที่เขียนติดมากับ tag (inline style) — JS สร้างตอน render */
+#page-monthly [style*="font-size:8px"],#page-monthly [style*="font-size: 8px"]{font-size:10px!important}
+#page-monthly [style*="font-size:8.5px"],#page-monthly [style*="font-size: 8.5px"]{font-size:10.5px!important}
+#page-monthly [style*="font-size:9px"],#page-monthly [style*="font-size: 9px"]{font-size:11px!important}
+#page-monthly [style*="font-size:9.5px"],#page-monthly [style*="font-size: 9.5px"]{font-size:11.5px!important}
+#page-monthly [style*="font-size:10px"],#page-monthly [style*="font-size: 10px"]{font-size:12px!important}
+#page-monthly [style*="font-size:10.5px"],#page-monthly [style*="font-size: 10.5px"]{font-size:12.5px!important}
+#page-monthly [style*="font-size:11px"],#page-monthly [style*="font-size: 11px"]{font-size:13px!important}
+#page-monthly [style*="font-size:11.5px"],#page-monthly [style*="font-size: 11.5px"]{font-size:13.5px!important}
+#page-monthly [style*="font-size:12px"],#page-monthly [style*="font-size: 12px"]{font-size:14px!important}
+#page-monthly [style*="font-size:12.5px"],#page-monthly [style*="font-size: 12.5px"]{font-size:14.5px!important}
+#page-monthly [style*="font-size:13px"],#page-monthly [style*="font-size: 13px"]{font-size:15px!important}
+#page-monthly [style*="font-size:13.5px"],#page-monthly [style*="font-size: 13.5px"]{font-size:15.5px!important}
+#page-monthly [style*="font-size:14px"],#page-monthly [style*="font-size: 14px"]{font-size:16px!important}
+#page-monthly [style*="font-size:14.5px"],#page-monthly [style*="font-size: 14.5px"]{font-size:16.5px!important}
+#page-monthly [style*="font-size:15px"],#page-monthly [style*="font-size: 15px"]{font-size:17px!important}
+#page-monthly [style*="font-size:15.5px"],#page-monthly [style*="font-size: 15.5px"]{font-size:17.5px!important}
+#page-monthly [style*="font-size:16px"],#page-monthly [style*="font-size: 16px"]{font-size:18px!important}
+#page-monthly [style*="font-size:16.5px"],#page-monthly [style*="font-size: 16.5px"]{font-size:18.5px!important}
+#page-monthly [style*="font-size:17px"],#page-monthly [style*="font-size: 17px"]{font-size:19px!important}
+#page-monthly [style*="font-size:17.5px"],#page-monthly [style*="font-size: 17.5px"]{font-size:19.5px!important}
+#page-monthly [style*="font-size:18px"],#page-monthly [style*="font-size: 18px"]{font-size:20px!important}
+#page-monthly [style*="font-size:18.5px"],#page-monthly [style*="font-size: 18.5px"]{font-size:20.5px!important}
+#page-monthly [style*="font-size:19px"],#page-monthly [style*="font-size: 19px"]{font-size:21px!important}
+#page-monthly [style*="font-size:19.5px"],#page-monthly [style*="font-size: 19.5px"]{font-size:21.5px!important}
+#page-monthly [style*="font-size:20px"],#page-monthly [style*="font-size: 20px"]{font-size:22px!important}
+#page-monthly [style*="font-size:20.5px"],#page-monthly [style*="font-size: 20.5px"]{font-size:22.5px!important}
+#page-monthly [style*="font-size:21px"],#page-monthly [style*="font-size: 21px"]{font-size:23px!important}
+#page-monthly [style*="font-size:21.5px"],#page-monthly [style*="font-size: 21.5px"]{font-size:23.5px!important}
+#page-monthly [style*="font-size:22px"],#page-monthly [style*="font-size: 22px"]{font-size:24px!important}
+#page-monthly [style*="font-size:22.5px"],#page-monthly [style*="font-size: 22.5px"]{font-size:24.5px!important}
+#page-monthly [style*="font-size:23px"],#page-monthly [style*="font-size: 23px"]{font-size:25px!important}
+#page-monthly [style*="font-size:23.5px"],#page-monthly [style*="font-size: 23.5px"]{font-size:25.5px!important}
+#page-monthly [style*="font-size:24px"],#page-monthly [style*="font-size: 24px"]{font-size:26px!important}
+#page-monthly [style*="font-size:24.5px"],#page-monthly [style*="font-size: 24.5px"]{font-size:26.5px!important}
+#page-monthly [style*="font-size:25px"],#page-monthly [style*="font-size: 25px"]{font-size:27px!important}
+#page-monthly [style*="font-size:25.5px"],#page-monthly [style*="font-size: 25.5px"]{font-size:27.5px!important}
+#page-monthly [style*="font-size:26px"],#page-monthly [style*="font-size: 26px"]{font-size:28px!important}
+
+/* 3) ตัวอักษรในกราฟ SVG (attribute font-size="N") */
+#page-monthly [font-size="8"]{font-size:10px}
+#page-monthly [font-size="8.5"]{font-size:10.5px}
+#page-monthly [font-size="9"]{font-size:11px}
+#page-monthly [font-size="9.5"]{font-size:11.5px}
+#page-monthly [font-size="10"]{font-size:12px}
+#page-monthly [font-size="10.5"]{font-size:12.5px}
+#page-monthly [font-size="11"]{font-size:13px}
+#page-monthly [font-size="11.5"]{font-size:13.5px}
+#page-monthly [font-size="12"]{font-size:14px}
+#page-monthly [font-size="12.5"]{font-size:14.5px}
+#page-monthly [font-size="13"]{font-size:15px}
+#page-monthly [font-size="13.5"]{font-size:15.5px}
+#page-monthly [font-size="14"]{font-size:16px}
+#page-monthly [font-size="14.5"]{font-size:16.5px}
+#page-monthly [font-size="15"]{font-size:17px}
+#page-monthly [font-size="15.5"]{font-size:17.5px}
+#page-monthly [font-size="16"]{font-size:18px}
+#page-monthly [font-size="16.5"]{font-size:18.5px}
+#page-monthly [font-size="17"]{font-size:19px}
+#page-monthly [font-size="17.5"]{font-size:19.5px}
+#page-monthly [font-size="18"]{font-size:20px}
+#page-monthly [font-size="18.5"]{font-size:20.5px}
+#page-monthly [font-size="19"]{font-size:21px}
+#page-monthly [font-size="19.5"]{font-size:21.5px}
+#page-monthly [font-size="20"]{font-size:22px}
+#page-monthly [font-size="20.5"]{font-size:22.5px}
+#page-monthly [font-size="21"]{font-size:23px}
+#page-monthly [font-size="21.5"]{font-size:23.5px}
+#page-monthly [font-size="22"]{font-size:24px}
+#page-monthly [font-size="22.5"]{font-size:24.5px}
+#page-monthly [font-size="23"]{font-size:25px}
+#page-monthly [font-size="23.5"]{font-size:25.5px}
+#page-monthly [font-size="24"]{font-size:26px}
+#page-monthly [font-size="24.5"]{font-size:26.5px}
+#page-monthly [font-size="25"]{font-size:27px}
+#page-monthly [font-size="25.5"]{font-size:27.5px}
+#page-monthly [font-size="26"]{font-size:28px}
+/* ป้ายเดือนบนแกน x ของกราฟเส้น: 10.5 → 12.5 (+2) → 14.5px (+2 อีกรอบ) */
+#page-monthly .mchart-xlabel{font-size:14.5px}
+/* ═══ จบบล็อก MONTHLY FONT +2px ═══ */
+
+/* ═══════════════════════════════════════════════════════════════
+   TOP ISSUE FONT +2px  —  ขยายฟอนต์เฉพาะหน้า "Top Issue" (#page-topissue)
+   • ยกเว้นตัวอักษรในกราฟ Pareto — ตัวเลขในแท่ง และ %cumulative คงขนาดเดิม
+     → ไม่มีกฎใดแตะ attribute font-size ของ <svg> ยกเว้นสเกลแกน Y ด้านล่าง
+   • ตารางชื่อ Issue ใต้กราฟ = ข้อความ ไม่ใช่ตัวเลข จึงขยายด้วย
+   • ต้องการกลับขนาดเดิม: ลบบล็อกนี้ทั้งก้อน
+   ═══════════════════════════════════════════════════════════════ */
+/* ฐาน: ข้อความที่ไม่ได้กำหนดขนาดไว้ (body = 13px) */
+#page-topissue{font-size:15px}
+/* ตรึงฐานของ SVG กราฟไว้ที่ 13px เดิม กันการสืบทอดขนาดใหม่ */
+#page-topissue #ti-pareto svg{font-size:13px}
+
+/* 0) ตัวเลขสเกลแกน Y ของกราฟ Pareto (0, 265, 531, 796, 1061) : 9 → 11px
+      ตัวเลขในแท่ง (11px) และ % ในวงกลม (10px) ไม่โดนกฎนี้ */
+#page-topissue #ti-pareto svg text[font-size="9"]{font-size:11px}
+
+/* 1) ขนาดที่มาจาก class */
+#page-topissue .tbl{font-size:14px}
+#page-topissue .tbl th{font-size:13px}
+#page-topissue .badge{font-size:13px}
+#page-topissue .empty{font-size:14px}
+#page-topissue .note{font-size:13.5px}
+#page-topissue .ms-btn{font-size:14px}
+#page-topissue .ms-caret{font-size:12px}
+#page-topissue .ms-clear{font-size:13px}
+#page-topissue .ms-item{font-size:14px}
+
+/* 2) ขนาดที่เขียนติดมากับ tag (inline style) — ไม่โดน <text> ในกราฟ
+      เพราะกราฟใช้ attribute font-size="N" ไม่ใช่ style="font-size:Npx" */
+#page-topissue [style*="font-size:8px"],#page-topissue [style*="font-size: 8px"]{font-size:10px!important}
+#page-topissue [style*="font-size:8.5px"],#page-topissue [style*="font-size: 8.5px"]{font-size:10.5px!important}
+#page-topissue [style*="font-size:9px"],#page-topissue [style*="font-size: 9px"]{font-size:11px!important}
+#page-topissue [style*="font-size:9.5px"],#page-topissue [style*="font-size: 9.5px"]{font-size:11.5px!important}
+#page-topissue [style*="font-size:10px"],#page-topissue [style*="font-size: 10px"]{font-size:12px!important}
+#page-topissue [style*="font-size:10.5px"],#page-topissue [style*="font-size: 10.5px"]{font-size:12.5px!important}
+#page-topissue [style*="font-size:11px"],#page-topissue [style*="font-size: 11px"]{font-size:13px!important}
+#page-topissue [style*="font-size:11.5px"],#page-topissue [style*="font-size: 11.5px"]{font-size:13.5px!important}
+#page-topissue [style*="font-size:12px"],#page-topissue [style*="font-size: 12px"]{font-size:14px!important}
+#page-topissue [style*="font-size:12.5px"],#page-topissue [style*="font-size: 12.5px"]{font-size:14.5px!important}
+#page-topissue [style*="font-size:13px"],#page-topissue [style*="font-size: 13px"]{font-size:15px!important}
+#page-topissue [style*="font-size:13.5px"],#page-topissue [style*="font-size: 13.5px"]{font-size:15.5px!important}
+#page-topissue [style*="font-size:14px"],#page-topissue [style*="font-size: 14px"]{font-size:16px!important}
+#page-topissue [style*="font-size:14.5px"],#page-topissue [style*="font-size: 14.5px"]{font-size:16.5px!important}
+#page-topissue [style*="font-size:15px"],#page-topissue [style*="font-size: 15px"]{font-size:17px!important}
+#page-topissue [style*="font-size:15.5px"],#page-topissue [style*="font-size: 15.5px"]{font-size:17.5px!important}
+#page-topissue [style*="font-size:16px"],#page-topissue [style*="font-size: 16px"]{font-size:18px!important}
+#page-topissue [style*="font-size:16.5px"],#page-topissue [style*="font-size: 16.5px"]{font-size:18.5px!important}
+#page-topissue [style*="font-size:17px"],#page-topissue [style*="font-size: 17px"]{font-size:19px!important}
+#page-topissue [style*="font-size:17.5px"],#page-topissue [style*="font-size: 17.5px"]{font-size:19.5px!important}
+#page-topissue [style*="font-size:18px"],#page-topissue [style*="font-size: 18px"]{font-size:20px!important}
+#page-topissue [style*="font-size:18.5px"],#page-topissue [style*="font-size: 18.5px"]{font-size:20.5px!important}
+#page-topissue [style*="font-size:19px"],#page-topissue [style*="font-size: 19px"]{font-size:21px!important}
+#page-topissue [style*="font-size:19.5px"],#page-topissue [style*="font-size: 19.5px"]{font-size:21.5px!important}
+#page-topissue [style*="font-size:20px"],#page-topissue [style*="font-size: 20px"]{font-size:22px!important}
+#page-topissue [style*="font-size:20.5px"],#page-topissue [style*="font-size: 20.5px"]{font-size:22.5px!important}
+#page-topissue [style*="font-size:21px"],#page-topissue [style*="font-size: 21px"]{font-size:23px!important}
+#page-topissue [style*="font-size:21.5px"],#page-topissue [style*="font-size: 21.5px"]{font-size:23.5px!important}
+#page-topissue [style*="font-size:22px"],#page-topissue [style*="font-size: 22px"]{font-size:24px!important}
+#page-topissue [style*="font-size:22.5px"],#page-topissue [style*="font-size: 22.5px"]{font-size:24.5px!important}
+#page-topissue [style*="font-size:23px"],#page-topissue [style*="font-size: 23px"]{font-size:25px!important}
+#page-topissue [style*="font-size:23.5px"],#page-topissue [style*="font-size: 23.5px"]{font-size:25.5px!important}
+#page-topissue [style*="font-size:24px"],#page-topissue [style*="font-size: 24px"]{font-size:26px!important}
+#page-topissue [style*="font-size:24.5px"],#page-topissue [style*="font-size: 24.5px"]{font-size:26.5px!important}
+#page-topissue [style*="font-size:25px"],#page-topissue [style*="font-size: 25px"]{font-size:27px!important}
+#page-topissue [style*="font-size:25.5px"],#page-topissue [style*="font-size: 25.5px"]{font-size:27.5px!important}
+#page-topissue [style*="font-size:26px"],#page-topissue [style*="font-size: 26px"]{font-size:28px!important}
+/* ═══ จบบล็อก TOP ISSUE FONT +2px ═══ */
+
+/* ═══════════════════════════════════════════════════════════════
+   WEEKLY FONT +2px  —  ขยายฟอนต์เฉพาะหน้า "รายสัปดาห์" (#page-weekly)
+   • กราฟ "FCR รายสัปดาห์ (%)" : ขยายแค่หัวเรื่อง (.ctitle)
+     ตัวกราฟ (เส้น, ตัวเลข %, สเกลแกน, ป้าย W1..W5) และ legend ใต้กราฟ = ขนาดเดิม
+   • กราฟ/ตาราง/Heatmap อื่นในหน้านี้ = ขยาย +2px ตามปกติ
+   • ต้องการกลับขนาดเดิม: ลบบล็อกนี้ทั้งก้อน
+   ═══════════════════════════════════════════════════════════════ */
+/* ฐาน: ข้อความที่ไม่ได้กำหนดขนาดไว้ (body = 13px) */
+#page-weekly{font-size:15px}
+
+/* 1) ขนาดที่มาจาก class */
+#page-weekly .ctitle{font-size:12px}
+#page-weekly .wk-month-btn{font-size:14px}
+#page-weekly .wk-week-btn{font-size:13.5px}
+#page-weekly .wk-month-count{font-size:13px}
+#page-weekly .wk-week-filter-lbl{font-size:13.5px}
+#page-weekly #wk-week-sel{font-size:13.5px}
+#page-weekly .wk-week-filter-note{font-size:13px}
+#page-weekly .wk-week-reset{font-size:13px}
+#page-weekly .wk-overview-tbl{font-size:14px}
+#page-weekly .wk-overview-tbl th{font-size:13px}
+#page-weekly .wk-kpi .wk-label{font-size:12px}
+#page-weekly .wk-kpi .wk-val{font-size:26px}
+#page-weekly .wk-kpi .wk-sub{font-size:13px}
+#page-weekly .wk-kpi .wk-delta{font-size:12px}
+#page-weekly .hm-cell{font-size:12px}
+#page-weekly .hm-head{font-size:12px}
+#page-weekly .hm-label{font-size:13px}
+#page-weekly .blbl{font-size:13px}
+#page-weekly .bfill{font-size:13px}
+#page-weekly .tbl{font-size:14px}
+#page-weekly .tbl th{font-size:13px}
+#page-weekly .badge{font-size:13px}
+#page-weekly .empty{font-size:14px}
+#page-weekly .note{font-size:13.5px}
+
+/* 2) ขนาดที่เขียนติดมากับ tag (inline style) */
+#page-weekly [style*="font-size:8px"],#page-weekly [style*="font-size: 8px"]{font-size:10px!important}
+#page-weekly [style*="font-size:8.5px"],#page-weekly [style*="font-size: 8.5px"]{font-size:10.5px!important}
+#page-weekly [style*="font-size:9px"],#page-weekly [style*="font-size: 9px"]{font-size:11px!important}
+#page-weekly [style*="font-size:9.5px"],#page-weekly [style*="font-size: 9.5px"]{font-size:11.5px!important}
+#page-weekly [style*="font-size:10px"],#page-weekly [style*="font-size: 10px"]{font-size:12px!important}
+#page-weekly [style*="font-size:10.5px"],#page-weekly [style*="font-size: 10.5px"]{font-size:12.5px!important}
+#page-weekly [style*="font-size:11px"],#page-weekly [style*="font-size: 11px"]{font-size:13px!important}
+#page-weekly [style*="font-size:11.5px"],#page-weekly [style*="font-size: 11.5px"]{font-size:13.5px!important}
+#page-weekly [style*="font-size:12px"],#page-weekly [style*="font-size: 12px"]{font-size:14px!important}
+#page-weekly [style*="font-size:12.5px"],#page-weekly [style*="font-size: 12.5px"]{font-size:14.5px!important}
+#page-weekly [style*="font-size:13px"],#page-weekly [style*="font-size: 13px"]{font-size:15px!important}
+#page-weekly [style*="font-size:13.5px"],#page-weekly [style*="font-size: 13.5px"]{font-size:15.5px!important}
+#page-weekly [style*="font-size:14px"],#page-weekly [style*="font-size: 14px"]{font-size:16px!important}
+#page-weekly [style*="font-size:14.5px"],#page-weekly [style*="font-size: 14.5px"]{font-size:16.5px!important}
+#page-weekly [style*="font-size:15px"],#page-weekly [style*="font-size: 15px"]{font-size:17px!important}
+#page-weekly [style*="font-size:15.5px"],#page-weekly [style*="font-size: 15.5px"]{font-size:17.5px!important}
+#page-weekly [style*="font-size:16px"],#page-weekly [style*="font-size: 16px"]{font-size:18px!important}
+#page-weekly [style*="font-size:16.5px"],#page-weekly [style*="font-size: 16.5px"]{font-size:18.5px!important}
+#page-weekly [style*="font-size:17px"],#page-weekly [style*="font-size: 17px"]{font-size:19px!important}
+#page-weekly [style*="font-size:17.5px"],#page-weekly [style*="font-size: 17.5px"]{font-size:19.5px!important}
+#page-weekly [style*="font-size:18px"],#page-weekly [style*="font-size: 18px"]{font-size:20px!important}
+#page-weekly [style*="font-size:18.5px"],#page-weekly [style*="font-size: 18.5px"]{font-size:20.5px!important}
+#page-weekly [style*="font-size:19px"],#page-weekly [style*="font-size: 19px"]{font-size:21px!important}
+#page-weekly [style*="font-size:19.5px"],#page-weekly [style*="font-size: 19.5px"]{font-size:21.5px!important}
+#page-weekly [style*="font-size:20px"],#page-weekly [style*="font-size: 20px"]{font-size:22px!important}
+#page-weekly [style*="font-size:20.5px"],#page-weekly [style*="font-size: 20.5px"]{font-size:22.5px!important}
+#page-weekly [style*="font-size:21px"],#page-weekly [style*="font-size: 21px"]{font-size:23px!important}
+#page-weekly [style*="font-size:21.5px"],#page-weekly [style*="font-size: 21.5px"]{font-size:23.5px!important}
+#page-weekly [style*="font-size:22px"],#page-weekly [style*="font-size: 22px"]{font-size:24px!important}
+#page-weekly [style*="font-size:22.5px"],#page-weekly [style*="font-size: 22.5px"]{font-size:24.5px!important}
+#page-weekly [style*="font-size:23px"],#page-weekly [style*="font-size: 23px"]{font-size:25px!important}
+#page-weekly [style*="font-size:23.5px"],#page-weekly [style*="font-size: 23.5px"]{font-size:25.5px!important}
+#page-weekly [style*="font-size:24px"],#page-weekly [style*="font-size: 24px"]{font-size:26px!important}
+#page-weekly [style*="font-size:24.5px"],#page-weekly [style*="font-size: 24.5px"]{font-size:26.5px!important}
+#page-weekly [style*="font-size:25px"],#page-weekly [style*="font-size: 25px"]{font-size:27px!important}
+#page-weekly [style*="font-size:25.5px"],#page-weekly [style*="font-size: 25.5px"]{font-size:27.5px!important}
+#page-weekly [style*="font-size:26px"],#page-weekly [style*="font-size: 26px"]{font-size:28px!important}
+
+/* 3) กันกราฟ FCR รายสัปดาห์ไม่ให้โดนขยาย ────────────────────────
+      3.1 ตัว SVG: ไม่มีกฎใดแตะ attribute font-size="N" ของกราฟนี้อยู่แล้ว
+          บรรทัดล่างเป็นเพียงการตรึงขนาดที่สืบทอดไว้ที่ 13px เดิม */
+#page-weekly .trend-wrap svg{font-size:13px}
+/*    3.2 legend ใต้กราฟ (Call FCR% / Mail FCR%) — คงไว้ 11px เดิม */
+#page-weekly .trend-wrap + div [style*="font-size:11px"],#page-weekly .trend-wrap + div [style*="font-size: 11px"]{font-size:11px!important}
+/* ═══ จบบล็อก WEEKLY FONT +2px ═══ */
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN FONT +2px  —  ขยายฟอนต์เฉพาะหน้า "ภาพรวม" (#page-main)
+   • การ์ดรายงานสรุป KPI ด้านบน (#kpi-row) : คงขนาดเดิมทั้งบล็อก
+     ขยายเฉพาะ 2 จุดที่ไฮไลท์ไว้ →
+       - % สัดส่วน Call / Mail  (.kpi-share-pct)   16   → 18px
+       - ข้อความย่อยในวงโดนัท   (.kpi-donut-sub)   9.5  → 11.5px
+   • ส่วนอื่นของหน้า (Response/Resolution Time, Call vs Mail,
+     Top 10 Issue, สรุป Case ทุกแผนก) = ขยาย +2px ตามปกติ
+   • ต้องการกลับขนาดเดิม: ลบบล็อกนี้ทั้งก้อน
+   ═══════════════════════════════════════════════════════════════ */
+/* ฐาน: ข้อความที่ไม่ได้กำหนดขนาดไว้ (body = 13px) */
+#page-main{font-size:15px}
+
+/* 1) ขนาดที่มาจาก class */
+#page-main .sec{font-size:13px}
+/* หัวการ์ด Response/Resolution Time: 10 → 12px แล้วลดลงครึ่งขั้นเป็น 11.5px
+   เพื่อให้ "Resolution Time (Non-FCR)" อยู่บรรทัดเดียว */
+#page-main .tcard-title{font-size:11.5px}
+#page-main .trow{font-size:14px}
+#page-main .blbl{font-size:13px}
+#page-main .bfill{font-size:13px}
+#page-main .bcnt{font-size:14px}
+#page-main .mtitle{font-size:14px}
+#page-main .mcnt{font-size:22px}
+#page-main .msub2{font-size:13px}
+#page-main .rnum{font-size:12px}
+#page-main .tbl{font-size:14px}
+#page-main .tbl th{font-size:13px}
+#page-main .badge{font-size:13px}
+#page-main .empty{font-size:14px}
+#page-main .note{font-size:13.5px}
+#page-main .ms-btn{font-size:14px}
+#page-main .ms-caret{font-size:12px}
+#page-main .ms-head{font-size:13px}
+#page-main .ms-clear{font-size:13px}
+#page-main .ms-item{font-size:14px}
+#page-main .t10ctrl select{font-size:14px}
+#page-main .t10ctrl label{font-size:14px}
+
+/* 2) ขนาดที่เขียนติดมากับ tag (inline style) */
+#page-main [style*="font-size:8px"],#page-main [style*="font-size: 8px"]{font-size:10px!important}
+#page-main [style*="font-size:8.5px"],#page-main [style*="font-size: 8.5px"]{font-size:10.5px!important}
+#page-main [style*="font-size:9px"],#page-main [style*="font-size: 9px"]{font-size:11px!important}
+#page-main [style*="font-size:9.5px"],#page-main [style*="font-size: 9.5px"]{font-size:11.5px!important}
+#page-main [style*="font-size:10px"],#page-main [style*="font-size: 10px"]{font-size:12px!important}
+#page-main [style*="font-size:10.5px"],#page-main [style*="font-size: 10.5px"]{font-size:12.5px!important}
+#page-main [style*="font-size:11px"],#page-main [style*="font-size: 11px"]{font-size:13px!important}
+#page-main [style*="font-size:11.5px"],#page-main [style*="font-size: 11.5px"]{font-size:13.5px!important}
+#page-main [style*="font-size:12px"],#page-main [style*="font-size: 12px"]{font-size:14px!important}
+#page-main [style*="font-size:12.5px"],#page-main [style*="font-size: 12.5px"]{font-size:14.5px!important}
+#page-main [style*="font-size:13px"],#page-main [style*="font-size: 13px"]{font-size:15px!important}
+#page-main [style*="font-size:13.5px"],#page-main [style*="font-size: 13.5px"]{font-size:15.5px!important}
+#page-main [style*="font-size:14px"],#page-main [style*="font-size: 14px"]{font-size:16px!important}
+#page-main [style*="font-size:14.5px"],#page-main [style*="font-size: 14.5px"]{font-size:16.5px!important}
+#page-main [style*="font-size:15px"],#page-main [style*="font-size: 15px"]{font-size:17px!important}
+#page-main [style*="font-size:15.5px"],#page-main [style*="font-size: 15.5px"]{font-size:17.5px!important}
+#page-main [style*="font-size:16px"],#page-main [style*="font-size: 16px"]{font-size:18px!important}
+#page-main [style*="font-size:16.5px"],#page-main [style*="font-size: 16.5px"]{font-size:18.5px!important}
+#page-main [style*="font-size:17px"],#page-main [style*="font-size: 17px"]{font-size:19px!important}
+#page-main [style*="font-size:17.5px"],#page-main [style*="font-size: 17.5px"]{font-size:19.5px!important}
+#page-main [style*="font-size:18px"],#page-main [style*="font-size: 18px"]{font-size:20px!important}
+#page-main [style*="font-size:18.5px"],#page-main [style*="font-size: 18.5px"]{font-size:20.5px!important}
+#page-main [style*="font-size:19px"],#page-main [style*="font-size: 19px"]{font-size:21px!important}
+#page-main [style*="font-size:19.5px"],#page-main [style*="font-size: 19.5px"]{font-size:21.5px!important}
+#page-main [style*="font-size:20px"],#page-main [style*="font-size: 20px"]{font-size:22px!important}
+#page-main [style*="font-size:20.5px"],#page-main [style*="font-size: 20.5px"]{font-size:22.5px!important}
+#page-main [style*="font-size:21px"],#page-main [style*="font-size: 21px"]{font-size:23px!important}
+#page-main [style*="font-size:21.5px"],#page-main [style*="font-size: 21.5px"]{font-size:23.5px!important}
+#page-main [style*="font-size:22px"],#page-main [style*="font-size: 22px"]{font-size:24px!important}
+#page-main [style*="font-size:22.5px"],#page-main [style*="font-size: 22.5px"]{font-size:24.5px!important}
+#page-main [style*="font-size:23px"],#page-main [style*="font-size: 23px"]{font-size:25px!important}
+#page-main [style*="font-size:23.5px"],#page-main [style*="font-size: 23.5px"]{font-size:25.5px!important}
+#page-main [style*="font-size:24px"],#page-main [style*="font-size: 24px"]{font-size:26px!important}
+#page-main [style*="font-size:24.5px"],#page-main [style*="font-size: 24.5px"]{font-size:26.5px!important}
+#page-main [style*="font-size:25px"],#page-main [style*="font-size: 25px"]{font-size:27px!important}
+#page-main [style*="font-size:25.5px"],#page-main [style*="font-size: 25.5px"]{font-size:27.5px!important}
+#page-main [style*="font-size:26px"],#page-main [style*="font-size: 26px"]{font-size:28px!important}
+
+/* 3) ตัวอักษรในกราฟ SVG ของหน้านี้ (attribute font-size="N") */
+#page-main [font-size="8"]{font-size:10px}
+#page-main [font-size="8.5"]{font-size:10.5px}
+#page-main [font-size="9"]{font-size:11px}
+#page-main [font-size="9.5"]{font-size:11.5px}
+#page-main [font-size="10"]{font-size:12px}
+#page-main [font-size="10.5"]{font-size:12.5px}
+#page-main [font-size="11"]{font-size:13px}
+#page-main [font-size="11.5"]{font-size:13.5px}
+#page-main [font-size="12"]{font-size:14px}
+#page-main [font-size="12.5"]{font-size:14.5px}
+#page-main [font-size="13"]{font-size:15px}
+#page-main [font-size="13.5"]{font-size:15.5px}
+#page-main [font-size="14"]{font-size:16px}
+#page-main [font-size="14.5"]{font-size:16.5px}
+#page-main [font-size="15"]{font-size:17px}
+#page-main [font-size="15.5"]{font-size:17.5px}
+#page-main [font-size="16"]{font-size:18px}
+#page-main [font-size="16.5"]{font-size:18.5px}
+#page-main [font-size="17"]{font-size:19px}
+#page-main [font-size="17.5"]{font-size:19.5px}
+#page-main [font-size="18"]{font-size:20px}
+#page-main [font-size="18.5"]{font-size:20.5px}
+#page-main [font-size="19"]{font-size:21px}
+#page-main [font-size="19.5"]{font-size:21.5px}
+#page-main [font-size="20"]{font-size:22px}
+#page-main [font-size="20.5"]{font-size:22.5px}
+#page-main [font-size="21"]{font-size:23px}
+#page-main [font-size="21.5"]{font-size:23.5px}
+#page-main [font-size="22"]{font-size:24px}
+#page-main [font-size="22.5"]{font-size:24.5px}
+#page-main [font-size="23"]{font-size:25px}
+#page-main [font-size="23.5"]{font-size:25.5px}
+#page-main [font-size="24"]{font-size:26px}
+#page-main [font-size="24.5"]{font-size:26.5px}
+#page-main [font-size="25"]{font-size:27px}
+#page-main [font-size="25.5"]{font-size:27.5px}
+#page-main [font-size="26"]{font-size:28px}
+
+/* 4) ตรึงการ์ดรายงานสรุป KPI (#kpi-row) ให้เป็นขนาดเดิมทั้งหมด
+      (2 id + attribute → ชนะกฎข้อ 1–3 ที่มี 1 id) */
+#page-main #kpi-row{font-size:13px}
+#page-main #kpi-row [style*="font-size:8px"],#page-main #kpi-row [style*="font-size: 8px"]{font-size:8px!important}
+#page-main #kpi-row [style*="font-size:8.5px"],#page-main #kpi-row [style*="font-size: 8.5px"]{font-size:8.5px!important}
+#page-main #kpi-row [style*="font-size:9px"],#page-main #kpi-row [style*="font-size: 9px"]{font-size:9px!important}
+#page-main #kpi-row [style*="font-size:9.5px"],#page-main #kpi-row [style*="font-size: 9.5px"]{font-size:9.5px!important}
+#page-main #kpi-row [style*="font-size:10px"],#page-main #kpi-row [style*="font-size: 10px"]{font-size:10px!important}
+#page-main #kpi-row [style*="font-size:10.5px"],#page-main #kpi-row [style*="font-size: 10.5px"]{font-size:10.5px!important}
+#page-main #kpi-row [style*="font-size:11px"],#page-main #kpi-row [style*="font-size: 11px"]{font-size:11px!important}
+#page-main #kpi-row [style*="font-size:11.4px"],#page-main #kpi-row [style*="font-size: 11.4px"]{font-size:11.4px!important}
+#page-main #kpi-row [style*="font-size:11.5px"],#page-main #kpi-row [style*="font-size: 11.5px"]{font-size:11.5px!important}
+#page-main #kpi-row [style*="font-size:12px"],#page-main #kpi-row [style*="font-size: 12px"]{font-size:12px!important}
+#page-main #kpi-row [style*="font-size:12.5px"],#page-main #kpi-row [style*="font-size: 12.5px"]{font-size:12.5px!important}
+#page-main #kpi-row [style*="font-size:13px"],#page-main #kpi-row [style*="font-size: 13px"]{font-size:13px!important}
+#page-main #kpi-row [style*="font-size:13.5px"],#page-main #kpi-row [style*="font-size: 13.5px"]{font-size:13.5px!important}
+#page-main #kpi-row [style*="font-size:14px"],#page-main #kpi-row [style*="font-size: 14px"]{font-size:14px!important}
+#page-main #kpi-row [style*="font-size:14.5px"],#page-main #kpi-row [style*="font-size: 14.5px"]{font-size:14.5px!important}
+#page-main #kpi-row [style*="font-size:15px"],#page-main #kpi-row [style*="font-size: 15px"]{font-size:15px!important}
+#page-main #kpi-row [style*="font-size:15.4px"],#page-main #kpi-row [style*="font-size: 15.4px"]{font-size:15.4px!important}
+#page-main #kpi-row [style*="font-size:15.5px"],#page-main #kpi-row [style*="font-size: 15.5px"]{font-size:15.5px!important}
+#page-main #kpi-row [style*="font-size:16px"],#page-main #kpi-row [style*="font-size: 16px"]{font-size:16px!important}
+#page-main #kpi-row [style*="font-size:16.5px"],#page-main #kpi-row [style*="font-size: 16.5px"]{font-size:16.5px!important}
+#page-main #kpi-row [style*="font-size:17px"],#page-main #kpi-row [style*="font-size: 17px"]{font-size:17px!important}
+#page-main #kpi-row [style*="font-size:17.5px"],#page-main #kpi-row [style*="font-size: 17.5px"]{font-size:17.5px!important}
+#page-main #kpi-row [style*="font-size:18px"],#page-main #kpi-row [style*="font-size: 18px"]{font-size:18px!important}
+#page-main #kpi-row [style*="font-size:18.5px"],#page-main #kpi-row [style*="font-size: 18.5px"]{font-size:18.5px!important}
+#page-main #kpi-row [style*="font-size:19px"],#page-main #kpi-row [style*="font-size: 19px"]{font-size:19px!important}
+#page-main #kpi-row [style*="font-size:19.5px"],#page-main #kpi-row [style*="font-size: 19.5px"]{font-size:19.5px!important}
+#page-main #kpi-row [style*="font-size:20px"],#page-main #kpi-row [style*="font-size: 20px"]{font-size:20px!important}
+#page-main #kpi-row [style*="font-size:20.5px"],#page-main #kpi-row [style*="font-size: 20.5px"]{font-size:20.5px!important}
+#page-main #kpi-row [style*="font-size:21px"],#page-main #kpi-row [style*="font-size: 21px"]{font-size:21px!important}
+#page-main #kpi-row [style*="font-size:21.5px"],#page-main #kpi-row [style*="font-size: 21.5px"]{font-size:21.5px!important}
+#page-main #kpi-row [style*="font-size:22px"],#page-main #kpi-row [style*="font-size: 22px"]{font-size:22px!important}
+#page-main #kpi-row [style*="font-size:22.5px"],#page-main #kpi-row [style*="font-size: 22.5px"]{font-size:22.5px!important}
+#page-main #kpi-row [style*="font-size:23px"],#page-main #kpi-row [style*="font-size: 23px"]{font-size:23px!important}
+#page-main #kpi-row [style*="font-size:23.5px"],#page-main #kpi-row [style*="font-size: 23.5px"]{font-size:23.5px!important}
+#page-main #kpi-row [style*="font-size:24px"],#page-main #kpi-row [style*="font-size: 24px"]{font-size:24px!important}
+#page-main #kpi-row [style*="font-size:24.5px"],#page-main #kpi-row [style*="font-size: 24.5px"]{font-size:24.5px!important}
+#page-main #kpi-row [style*="font-size:25px"],#page-main #kpi-row [style*="font-size: 25px"]{font-size:25px!important}
+#page-main #kpi-row [style*="font-size:25.5px"],#page-main #kpi-row [style*="font-size: 25.5px"]{font-size:25.5px!important}
+#page-main #kpi-row [style*="font-size:26px"],#page-main #kpi-row [style*="font-size: 26px"]{font-size:26px!important}
+#page-main #kpi-row [style*="font-size:26.4px"],#page-main #kpi-row [style*="font-size: 26.4px"]{font-size:26.4px!important}
+#page-main #kpi-row [style*="font-size:35px"],#page-main #kpi-row [style*="font-size: 35px"]{font-size:35px!important}
+#page-main #kpi-row [style*="font-size:44px"],#page-main #kpi-row [style*="font-size: 44px"]{font-size:44px!important}
+#page-main #kpi-row [style*="font-size:64px"],#page-main #kpi-row [style*="font-size: 64px"]{font-size:64px!important}
+
+/* 5) ยกเว้นของยกเว้น — 2 จุดที่ไฮไลท์ในการ์ด KPI ให้ขยาย +2px
+      (เติม [style] เพื่อให้ specificity สูงกว่าข้อ 4) */
+#page-main #kpi-row .kpi-share-pct[style]{font-size:18px!important}
+#page-main #kpi-row .kpi-donut-sub[style]{font-size:11.5px!important}
+/* ═══ จบบล็อก MAIN FONT +2px ═══ */
+
+/* ═══ คอลัมน์ที่กำหนดตำแหน่งไว้เอง (ตัวจัดคอลัมน์อัตโนมัติจะไม่แตะ) ═══ */
+.tbl th.keep-align,.tbl td.keep-align{text-align:center}
+/* ═══ จบบล็อก keep-align ═══ */
+
+/* ═══════════════════════════════════════════════════════════════
+   NON-FCR (CASE LEVEL 2) FONT +2px  —  เฉพาะหน้านี้ (#page-mgmt)
+   • ยกเว้น "ตัวเลขอันดับ" (#1 #2 #3 ... ในคอลัมน์ อันดับ) = ขนาดเดิม 16px
+   • ต้องการกลับขนาดเดิม: ลบบล็อกนี้ทั้งก้อน
+   ═══════════════════════════════════════════════════════════════ */
+/* ฐาน: ข้อความที่ไม่ได้กำหนดขนาดไว้ (body = 13px) */
+#page-mgmt{font-size:15px}
+
+/* 1) ขนาดที่มาจาก class */
+#page-mgmt .note{font-size:13.5px}
+#page-mgmt .sec{font-size:13px}
+#page-mgmt .ctitle{font-size:12px}
+#page-mgmt .mgmt-card .mlabel{font-size:12px}
+#page-mgmt .mgmt-card .mval{font-size:24px}
+#page-mgmt .mgmt-card .msub{font-size:13px}
+#page-mgmt .blbl{font-size:13px}
+#page-mgmt .bfill{font-size:13px}
+#page-mgmt .bcnt{font-size:14px}
+#page-mgmt .tbl{font-size:14px}
+#page-mgmt .tbl th{font-size:13px}
+#page-mgmt .dept-perf-tbl{font-size:14px}
+#page-mgmt .badge{font-size:13px}
+#page-mgmt .empty{font-size:14px}
+#page-mgmt .drill-icon{font-size:12px}
+#page-mgmt select{font-size:14px}
+
+/* 2) ขนาดที่เขียนติดมากับ tag (inline style)
+      เขียน 2 แบบ (มี/ไม่มีช่องว่างหลัง :) เพราะเบราว์เซอร์จะเติมช่องว่างให้เอง
+      เมื่อ JavaScript ไปแก้ style ของ element นั้น */
+#page-mgmt [style*="font-size:8px"],#page-mgmt [style*="font-size: 8px"]{font-size:10px!important}
+#page-mgmt [style*="font-size:8.5px"],#page-mgmt [style*="font-size: 8.5px"]{font-size:10.5px!important}
+#page-mgmt [style*="font-size:9px"],#page-mgmt [style*="font-size: 9px"]{font-size:11px!important}
+#page-mgmt [style*="font-size:9.5px"],#page-mgmt [style*="font-size: 9.5px"]{font-size:11.5px!important}
+#page-mgmt [style*="font-size:10px"],#page-mgmt [style*="font-size: 10px"]{font-size:12px!important}
+#page-mgmt [style*="font-size:10.5px"],#page-mgmt [style*="font-size: 10.5px"]{font-size:12.5px!important}
+#page-mgmt [style*="font-size:11px"],#page-mgmt [style*="font-size: 11px"]{font-size:13px!important}
+#page-mgmt [style*="font-size:11.5px"],#page-mgmt [style*="font-size: 11.5px"]{font-size:13.5px!important}
+#page-mgmt [style*="font-size:12px"],#page-mgmt [style*="font-size: 12px"]{font-size:14px!important}
+#page-mgmt [style*="font-size:12.5px"],#page-mgmt [style*="font-size: 12.5px"]{font-size:14.5px!important}
+#page-mgmt [style*="font-size:13px"],#page-mgmt [style*="font-size: 13px"]{font-size:15px!important}
+#page-mgmt [style*="font-size:13.5px"],#page-mgmt [style*="font-size: 13.5px"]{font-size:15.5px!important}
+#page-mgmt [style*="font-size:14px"],#page-mgmt [style*="font-size: 14px"]{font-size:16px!important}
+#page-mgmt [style*="font-size:14.5px"],#page-mgmt [style*="font-size: 14.5px"]{font-size:16.5px!important}
+#page-mgmt [style*="font-size:15px"],#page-mgmt [style*="font-size: 15px"]{font-size:17px!important}
+#page-mgmt [style*="font-size:15.5px"],#page-mgmt [style*="font-size: 15.5px"]{font-size:17.5px!important}
+#page-mgmt [style*="font-size:16px"],#page-mgmt [style*="font-size: 16px"]{font-size:18px!important}
+#page-mgmt [style*="font-size:16.5px"],#page-mgmt [style*="font-size: 16.5px"]{font-size:18.5px!important}
+#page-mgmt [style*="font-size:17px"],#page-mgmt [style*="font-size: 17px"]{font-size:19px!important}
+#page-mgmt [style*="font-size:17.5px"],#page-mgmt [style*="font-size: 17.5px"]{font-size:19.5px!important}
+#page-mgmt [style*="font-size:18px"],#page-mgmt [style*="font-size: 18px"]{font-size:20px!important}
+#page-mgmt [style*="font-size:18.5px"],#page-mgmt [style*="font-size: 18.5px"]{font-size:20.5px!important}
+#page-mgmt [style*="font-size:19px"],#page-mgmt [style*="font-size: 19px"]{font-size:21px!important}
+#page-mgmt [style*="font-size:19.5px"],#page-mgmt [style*="font-size: 19.5px"]{font-size:21.5px!important}
+#page-mgmt [style*="font-size:20px"],#page-mgmt [style*="font-size: 20px"]{font-size:22px!important}
+#page-mgmt [style*="font-size:20.5px"],#page-mgmt [style*="font-size: 20.5px"]{font-size:22.5px!important}
+#page-mgmt [style*="font-size:21px"],#page-mgmt [style*="font-size: 21px"]{font-size:23px!important}
+#page-mgmt [style*="font-size:21.5px"],#page-mgmt [style*="font-size: 21.5px"]{font-size:23.5px!important}
+#page-mgmt [style*="font-size:22px"],#page-mgmt [style*="font-size: 22px"]{font-size:24px!important}
+#page-mgmt [style*="font-size:22.5px"],#page-mgmt [style*="font-size: 22.5px"]{font-size:24.5px!important}
+#page-mgmt [style*="font-size:23px"],#page-mgmt [style*="font-size: 23px"]{font-size:25px!important}
+#page-mgmt [style*="font-size:23.5px"],#page-mgmt [style*="font-size: 23.5px"]{font-size:25.5px!important}
+#page-mgmt [style*="font-size:24px"],#page-mgmt [style*="font-size: 24px"]{font-size:26px!important}
+#page-mgmt [style*="font-size:24.5px"],#page-mgmt [style*="font-size: 24.5px"]{font-size:26.5px!important}
+#page-mgmt [style*="font-size:25px"],#page-mgmt [style*="font-size: 25px"]{font-size:27px!important}
+#page-mgmt [style*="font-size:25.5px"],#page-mgmt [style*="font-size: 25.5px"]{font-size:27.5px!important}
+#page-mgmt [style*="font-size:26px"],#page-mgmt [style*="font-size: 26px"]{font-size:28px!important}
+
+/* 3) ยกเว้น — ตัวเลขอันดับ #1 #2 #3 ... คงขนาดเดิม 16px
+      (เติม [style] เพื่อให้ specificity สูงกว่าข้อ 2) */
+#page-mgmt .mgmt-rank[style]{font-size:16px!important}
+/* ═══ จบบล็อก NON-FCR FONT +2px ═══ */
 </style>
 </head>
 <body>
@@ -452,7 +973,7 @@ body.has-data #tab-bar{display:flex!important}
       <button class="tbtn" id="tt-mail" onclick="setMode('mail')">✉ Mail</button>
     </div>
   </div>
-  <div class="fg"><label>เดือน:</label><select id="f-month" onchange="onMonthChange()"><option value="">ทั้งหมด</option></select></div>
+  <div class="fg"><label>เดือน:</label><div class="ms-wrap"><button type="button" class="ms-btn month-ms-btn" onclick="toggleDeptMenu(event,'month-ms-menu')">ทั้งหมด <span class="ms-caret">▾</span></button><div class="ms-menu" id="month-ms-menu"><div class="ms-head"><span class="month-ms-count">เลือกได้มากกว่า 1 เดือน</span><button type="button" class="ms-clear" onclick="setSelMonths([])">ล้าง</button></div><div class="ms-list month-ms-list"></div></div></div><select id="f-month" style="display:none"><option value="">ทั้งหมด</option></select></div>
   <div class="fg"><label>ช่วงวันที่:</label>
     <input type="date" id="f-from" onchange="applyFilters()">
     <span style="font-size:11px;color:var(--gray)">—</span>
@@ -482,8 +1003,9 @@ body.has-data #tab-bar{display:flex!important}
   <button class="tab on" onclick="showTab('main')">📊 ภาพรวม</button>
   <button class="tab" onclick="showTab('weekly')">📅 รายสัปดาห์</button>
   <button class="tab" onclick="showTab('monthly')">📈 รายเดือน</button>
-  <button class="tab" onclick="showTab('fcr')">🎯 FCR / Non-FCR</button>
-  <button class="tab" onclick="showTab('mgmt')">🔺 Case Level 2</button>
+  <!-- ซ่อนแท็บ FCR / Non-FCR ชั่วคราว (ยังไม่ลบ) — ต้องการเปิดกลับ: ลบ style="display:none" ออก -->
+  <button class="tab" style="display:none" onclick="showTab('fcr')">🎯 FCR / Non-FCR</button>
+  <button class="tab" onclick="showTab('mgmt')">🔺 Non-FCR</button>
   <button class="tab" onclick="showTab('pending')">⏳ Case ค้าง</button>
   <button class="tab" onclick="showTab('topissue')">🔍 Top Issue</button>
 </div>
@@ -673,16 +1195,16 @@ body.has-data #tab-bar{display:flex!important}
 
 <!-- ══════════════ PAGE: MGMT ══════════════ -->
 <div class="page" id="page-mgmt">
-  <div class="note">🔺 วัด Performance แต่ละแผนกที่รับเรื่องต่อ (Case Level 2) ว่าดำเนินการเร็วแค่ไหน และมี Case ค้างอยู่เท่าไหร่</div>
-  <div class="sec"><div class="dot" style="background:var(--blue)"></div>สรุป Case ที่ส่งต่อ (Case Level 2)</div>
+  <div class="note">🔺 วัด Performance แต่ละแผนกที่รับเรื่องต่อ (Non-FCR) ว่าดำเนินการเร็วแค่ไหน และมี Case ค้างอยู่เท่าไหร่</div>
+  <div class="sec"><div class="dot" style="background:var(--blue)"></div>สรุป Case ที่ส่งต่อ (Non-FCR)</div>
   <div class="mgmt-summary" id="mgmt-kpi"></div>
   <div id="dept-perf-table" style="display:none"></div>
   <div class="g2">
-    <div class="card"><div class="ctitle"><div class="dot" style="background:var(--amber)"></div>Case Level 2 ตามแผนกที่ส่งต่อ</div><div class="bars" id="mgmt-dept-bar"></div></div>
+    <div class="card"><div class="ctitle"><div class="dot" style="background:var(--amber)"></div>Non-FCR ตามแผนกที่ส่งต่อ</div><div class="bars" id="mgmt-dept-bar"></div></div>
     <div class="card"><div class="ctitle"><div class="dot" style="background:var(--red)"></div>Avg Response Time ตามแผนก (วัน)</div><div class="bars" id="mgmt-resp-bar"></div></div>
   </div>
   <div class="sec" style="display:flex;align-items:center;justify-content:space-between">
-    <div style="display:flex;align-items:center;gap:6px"><div class="dot" style="background:var(--amber)"></div>Top Case Level 2 ตามแผนก</div>
+    <div style="display:flex;align-items:center;gap:6px"><div class="dot" style="background:var(--amber)"></div>Top Non-FCR ตามแผนก</div>
     <div style="display:flex;align-items:center;gap:6px;font-size:12px">
       <span style="color:var(--gray)">แสดง Issue ตาม:</span>
       <select id="mgmt-issue-col" onchange="renderMgmt()" style="font-size:12px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);color:var(--dark);background:#fff">
@@ -727,36 +1249,38 @@ body.has-data #tab-bar{display:flex!important}
     <div class="m-g2">
       <div class="m-card" style="padding:14px 0 10px">
         <div class="m-card-title" style="padding:0 14px">
-          <div class="dot" style="background:#3b82f6"></div>1st Contact Resolution
+          <div class="dot" style="background:#3b82f6"></div><span id="m-fcr-title">1st Contact Resolution</span>
         </div>
         <div id="m-call-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div>
       <div class="m-card" style="padding:14px 0 10px">
         <div class="m-card-title" style="padding:0 14px">
-          <div class="dot" style="background:#ef4444"></div>Abandon
+          <div class="dot" style="background:#ef4444"></div><span id="m-abn-title">Abandon</span>
         </div>
+        <div id="m-abn-note" style="padding:0 14px 4px"></div>
         <div id="m-abn-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div>
     </div>
     <div class="m-g2">
       <div class="m-card" style="padding:14px 0 10px">
         <div class="m-card-title" style="padding:0 14px"><div class="dot" style="background:#22c55e"></div>Call Reach Rate</div>
+        <div id="m-reach-note" style="padding:0 14px 4px"></div>
         <div id="m-reach-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div>
       <div class="m-card" style="padding:14px 0 10px">
-        <div class="m-card-title" style="padding:0 14px"><div class="dot" style="background:#FFA940"></div>Avg. Resolution Time</div>
+        <div class="m-card-title" style="padding:0 14px"><div class="dot" style="background:#FFA940"></div><span id="m-res-title">Avg. Resolution Time</span></div>
         <div id="m-res-call-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div></div>
     <!-- end m-g2 reach+res row -->
-    <div class="m-sec"><div class="dot" style="background:#FFA940"></div>Resolution Time &amp; Response Time ตามแผนก รายเดือน — Call (วัน)</div>
+    <div class="m-sec"><div class="dot" style="background:#FFA940"></div><span id="m-resdept-sec">Avg. Resolution Time ตามแผนก รายเดือน -Call+Mail (วัน)</span></div>
     <div class="m-card" style="padding:14px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
         <div>
-          <div style="font-size:10px;font-weight:700;color:#29C6C0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">⏱ Resolution Time</div>
+          <div style="font-size:10px;font-weight:700;color:#29C6C0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">⏱ Resolution Time (All Close)</div>
           <div id="m-call-res-dept-chart" style="overflow-x:auto"></div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#5B8DEF;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">📋 Resolution Time (Level 2-Close)</div>
+          <div style="font-size:10px;font-weight:700;color:#5B8DEF;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">📋 Resolution Time (Non-FCR -Close)</div>
           <div id="m-call-resp-dept-chart" style="overflow-x:auto"></div>
         </div>
       </div>
@@ -774,7 +1298,7 @@ body.has-data #tab-bar{display:flex!important}
     <div class="m-g2">
       <div class="m-card" style="padding:14px 0 10px">
         <div class="m-card-title" style="padding:0 14px">
-          <div class="dot" style="background:#a855f7"></div>Total Mail vs Level 1 รายเดือน
+          <div class="dot" style="background:#a855f7"></div><span id="m-mail-fcr-title">1st Contact Resolution — Mail</span>
         </div>
         <div id="m-mail-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div>
@@ -783,15 +1307,15 @@ body.has-data #tab-bar{display:flex!important}
         <div id="m-res-mail-chart" style="overflow-x:auto;padding-right:14px"></div>
       </div>
     </div>
-    <div class="m-sec"><div class="dot" style="background:#FFA940"></div>Resolution Time &amp; Response Time ตามแผนก รายเดือน — Mail (วัน)</div>
+    <div class="m-sec"><div class="dot" style="background:#FFA940"></div>Avg. Resolution Time ตามแผนก รายเดือน -Mail (วัน)</div>
     <div class="m-card" style="padding:14px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
         <div>
-          <div style="font-size:10px;font-weight:700;color:#6C5CE7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">⏱ Resolution Time</div>
+          <div style="font-size:10px;font-weight:700;color:#6C5CE7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">⏱ Resolution Time (All Close)</div>
           <div id="m-mail-res-dept-chart" style="overflow-x:auto"></div>
         </div>
         <div>
-          <div style="font-size:10px;font-weight:700;color:#5B8DEF;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">📋 Resolution Time (Level 2-Close)</div>
+          <div style="font-size:10px;font-weight:700;color:#5B8DEF;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">📋 Resolution Time (Non-FCR -Close)</div>
           <div id="m-mail-resp-dept-chart" style="overflow-x:auto"></div>
         </div>
       </div>
@@ -849,7 +1373,14 @@ body.has-data #tab-bar{display:flex!important}
 // ══════════════════════════════════════════════════════
 // DATA LAYER
 // ══════════════════════════════════════════════════════
-let RAW=[], FILTERED=[], MODE='all', SEL_DAY='', MONTHLY_SEL_M='';
+let RAW=[], FILTERED=[], MODE='all', SEL_DAY='';
+// เดือนที่เลือกในแถบฟิลเตอร์ — ใช้ไฮไลท์บนแกน x ของกราฟรายเดือน (เก็บเป็น array รองรับหลายเดือน)
+let MONTHLY_SEL_M=[];
+// true ถ้าเดือนนี้ถูกเลือกอยู่ (รับได้ทั้ง array และค่าเดี่ยว)
+function isSelMonth(m){
+  if(!m||!MONTHLY_SEL_M) return false;
+  return Array.isArray(MONTHLY_SEL_M) ? MONTHLY_SEL_M.includes(m) : MONTHLY_SEL_M===m;
+}
 let CX={loaded:false,total:{reach_pct:null,sla_pct:null,reach_ans:0,reach_abn:0,
          sla_ok:0,sla_total:0,avg_talk_sec:null},daily:{}};
 
@@ -879,6 +1410,13 @@ const modeFilter = r => MODE==='call'?isAnyCall(r):MODE==='mail'?isMail(r):true;
 const pct=(n,d)=>d?Math.round(n/d*100):0;
 const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
 const nf=v=>v===null||v===undefined?'—':parseFloat(v).toFixed(1);
+// ใส่ , คั่นหลักพัน — ค่าที่ไม่ใช่ตัวเลขคืนค่าเดิม, เรียกซ้ำได้ไม่เสียหาย
+const nc=v=>{
+  if(v===null||v===undefined||v==='')return v;
+  if(typeof v==='number')return isFinite(v)?v.toLocaleString('en-US'):v;
+  const t=String(v);
+  return /^-?\d+$/.test(t) ? Number(t).toLocaleString('en-US') : t;
+};
 const today=()=>new Date().toISOString().slice(0,10);
 const fmtDate=d=>{if(!d)return'—';const[y,m,dy]=d.split('-');return`${dy}/${m}/${y}`;};
 const diffDays=(a,b)=>{if(!a||!b)return 0;return Math.max(0,Math.round((new Date(b)-new Date(a))/86400000));};
@@ -1235,7 +1773,7 @@ function loadDemoData(){
     };
     document.getElementById('btn-demo').insertAdjacentElement('afterend',resetBtn);
   }
-  console.log(`✅ Demo: ${RAW.length} rows loaded`);
+  console.log(`✅ Demo: ${nc(RAW.length)} rows loaded`);
 }
 
 // ── FCR filter จากฝั่งตาราง "สรุป Case ทุกแผนก" ──
@@ -1249,8 +1787,48 @@ function onDeptTableFcrChange(){
 // ═══ MULTI-SELECT แผนก ═══
 // SEL_DEPTS = แผนกที่เลือกอยู่ (array ว่าง = ทุกแผนก)
 let SEL_DEPTS=[];
+let SEL_MONTHS=[];   // เดือนที่เลือก (ว่าง = ทุกเดือน)
 // ใช้เช็คว่า record ผ่าน filter แผนกหรือไม่ (ใช้แทนการเทียบ r.typeDept!==fd แบบเดิม)
 function deptMatch(r){ return SEL_DEPTS.length===0 || SEL_DEPTS.includes(r.typeDept); }
+
+// ─── ตัวกรองเดือน: เลือกได้หลายเดือน (array ว่าง = ทุกเดือน) ───
+function monthMatch(r){ return SEL_MONTHS.length===0 || SEL_MONTHS.includes(r.logMonth); }
+// sync select ที่ซ่อนไว้: เลือกเดือนเดียว → ใส่ค่าเดือนนั้น, หลายเดือน/ไม่เลือก → ว่าง
+function syncMonthSelector(){
+  const one = SEL_MONTHS.length===1 ? SEL_MONTHS[0] : '';
+  const el=document.getElementById('f-month');
+  if(el&&el.value!==one) el.value=one;
+}
+function updateMonthButton(){
+  let label;
+  if(SEL_MONTHS.length===0)      label='ทั้งหมด';
+  else if(SEL_MONTHS.length===1) label=SEL_MONTHS[0];
+  else                           label=`${nc(SEL_MONTHS.length)} เดือน`;
+  document.querySelectorAll('.month-ms-btn').forEach(btn=>{
+    btn.innerHTML=`${label} <span class="ms-caret">▾</span>`;
+    btn.classList.toggle('active', SEL_MONTHS.length>0);
+    btn.title = SEL_MONTHS.length>1 ? SEL_MONTHS.join(', ') : '';
+  });
+  document.querySelectorAll('.month-ms-count').forEach(el=>{
+    el.textContent = SEL_MONTHS.length>0 ? `เลือกแล้ว ${nc(SEL_MONTHS.length)} เดือน` : 'เลือกได้มากกว่า 1 เดือน';
+  });
+  document.querySelectorAll('.month-ms-list input[type=checkbox]').forEach(cb=>{
+    cb.checked = SEL_MONTHS.includes(cb.value);
+  });
+}
+function setSelMonths(arr){
+  SEL_MONTHS = Array.from(new Set((arr||[]).filter(Boolean)));
+  clearDates(false);            // เลือกเดือนแล้วล้างช่วงวันที่ (พฤติกรรมเดิมของ onMonthChange)
+  syncMonthSelector(); updateMonthButton(); applyFilters();
+}
+function onMonthCheck(cb){
+  if(cb.checked){ if(!SEL_MONTHS.includes(cb.value)) SEL_MONTHS.push(cb.value); }
+  else SEL_MONTHS=SEL_MONTHS.filter(m=>m!==cb.value);
+  // เรียงตามปฏิทินเสมอ
+  SEL_MONTHS.sort((a,b)=>(MONTH_ORDER[a]||99)-(MONTH_ORDER[b]||99));
+  clearDates(false);
+  syncMonthSelector(); updateMonthButton(); applyFilters();
+}
 
 // ─── Sync dept selector ทุกตัว (f-dept ที่ซ่อนไว้, dept-sel, ti-dept) ให้ตรงกับ SEL_DEPTS ───
 // เลือกแผนกเดียว → selector เหล่านี้แสดงแผนกนั้น (พฤติกรรมเดิม)
@@ -1266,7 +1844,7 @@ function updateDeptButton(){
   let label;
   if(SEL_DEPTS.length===0)      label='ทั้งหมด';
   else if(SEL_DEPTS.length===1) label=SEL_DEPTS[0];
-  else                          label=`${SEL_DEPTS.length} แผนก`;
+  else                          label=`${nc(SEL_DEPTS.length)} แผนก`;
   // อัปเดตปุ่ม multi-select ทุกตัวในหน้า (ตัวกรองหลัก + หน้า Top Issue + หน้า Top 10)
   document.querySelectorAll('.dept-ms-btn').forEach(btn=>{
     btn.innerHTML=`${label} <span class="ms-caret">▾</span>`;
@@ -1274,7 +1852,7 @@ function updateDeptButton(){
     btn.title = SEL_DEPTS.length>1 ? SEL_DEPTS.join(', ') : '';
   });
   document.querySelectorAll('.dept-ms-count').forEach(el=>{
-    el.textContent = SEL_DEPTS.length>0 ? `เลือกแล้ว ${SEL_DEPTS.length} แผนก` : 'เลือกได้มากกว่า 1 แผนก';
+    el.textContent = SEL_DEPTS.length>0 ? `เลือกแล้ว ${nc(SEL_DEPTS.length)} แผนก` : 'เลือกได้มากกว่า 1 แผนก';
   });
   document.querySelectorAll('.dept-ms-list input[type=checkbox]').forEach(cb=>{
     cb.checked = SEL_DEPTS.includes(cb.value);
@@ -1369,25 +1947,19 @@ function getCX(dateFrom,dateTo,selDay,month){
     src=Object.entries(CX.daily)
       .filter(([d])=>{if(dateFrom&&d<dateFrom)return false;if(dateTo&&d>dateTo)return false;return true;})
       .map(([,v])=>v);
-  } else if(month){
-    // month อาจเป็น "Apr", "May" หรือ "2025-04"
-    // CX.daily key เป็น "2025-04-01" format
-    // ถ้า month เป็นชื่อเดือน ต้องหา YYYY-MM จาก CX.daily keys
-    let prefix=month;
-    if(month&&!month.includes('-')){
-      // หา key ที่ match เดือนนี้จาก RAW logMonth
-      const rawDates=[...new Set(
-        Object.keys(CX.daily).filter(d=>{
-          // ดึงชื่อเดือนจาก date string เช่น "2025-05-01" → "May"
-          const dt=new Date(d);
-          const mn=dt.toLocaleString('en',{month:'short'});
-          const mFull=dt.toLocaleString('en',{month:'long'});
-          return mn===month||mFull===month;
-        }).map(d=>d.slice(0,7)) // "2025-05"
-      )];
-      prefix=rawDates[0]||month; // ใช้ YYYY-MM ที่หาได้
-    }
-    src=Object.entries(CX.daily).filter(([d])=>d.startsWith(prefix)).map(([,v])=>v);
+  } else if(month && (!Array.isArray(month) || month.length)){
+    // month รับได้ทั้งค่าเดี่ยว ("Apr") และ array (["Apr","May"])
+    const _mList = Array.isArray(month) ? month : [month];
+    const _prefixOf = (mm)=>{
+      if(mm && mm.includes('-')) return mm;
+      const found=[...new Set(Object.keys(CX.daily).filter(d=>{
+        const dt=new Date(d);
+        return dt.toLocaleString('en',{month:'short'})===mm || dt.toLocaleString('en',{month:'long'})===mm;
+      }).map(d=>d.slice(0,7)))];
+      return found[0]||mm;
+    };
+    const _prefixes=_mList.map(_prefixOf);
+    src=Object.entries(CX.daily).filter(([d])=>_prefixes.some(pf=>d.startsWith(pf))).map(([,v])=>v);
   }
   if(src){
     const a=src.reduce((x,v)=>({
@@ -1418,6 +1990,16 @@ function populateFilters(){
   const depts=[...new Set(RAW.map(r=>r.typeDept).filter(Boolean))].sort();
   const levels=[...new Set(RAW.map(r=>r.caseLevel).filter(Boolean))].sort();
   document.getElementById('f-month').innerHTML='<option value="">ทั้งหมด</option>'+months.map(m=>`<option>${m}</option>`).join('');
+  // ── รายการติ๊กเลือกเดือน (เรียงตามปฏิทิน) ──
+  const monthsAsc=[...months].sort((a,b)=>(MONTH_ORDER[a]||99)-(MONTH_ORDER[b]||99));
+  document.querySelectorAll('.month-ms-list').forEach(el=>{
+    el.innerHTML=monthsAsc.map(m=>
+      `<label class="ms-item"><input type="checkbox" value="${m}" onchange="onMonthCheck(this)"><span>${m}</span></label>`
+    ).join('');
+  });
+  SEL_MONTHS=SEL_MONTHS.filter(m=>months.includes(m))
+    .sort((a,b)=>(MONTH_ORDER[a]||99)-(MONTH_ORDER[b]||99));
+  syncMonthSelector(); updateMonthButton();
   document.getElementById('f-dept').innerHTML='<option value="">ทั้งหมด</option>'+depts.map(d=>`<option>${d}</option>`).join('');
   // สร้างรายการ checkbox ให้ multi-select แผนกทุกตัวในหน้า
   const msLists=document.querySelectorAll('.dept-ms-list');
@@ -1443,7 +2025,7 @@ function onMonthChange(){clearDates(false);applyFilters();}
 function updateDayPills(){}
 function selectDay(d){}
 function clearDates(refresh=true){const ef=document.getElementById('f-from');if(ef)ef.value='';const et=document.getElementById('f-to');if(et)et.value='';if(refresh)applyFilters();}
-function clearAll(){const em=document.getElementById('f-month');if(em)em.value='';SEL_DEPTS=[];syncDeptSelectors();updateDeptButton();const el2=document.getElementById('f-level');if(el2)el2.value='';SEL_DAY='';clearDates(false);setMode('all');}
+function clearAll(){const em=document.getElementById('f-month');if(em)em.value='';SEL_MONTHS=[];syncMonthSelector();updateMonthButton();SEL_DEPTS=[];syncDeptSelectors();updateDeptButton();const el2=document.getElementById('f-level');if(el2)el2.value='';SEL_DAY='';clearDates(false);setMode('all');}
 
 function applyFilters(){
   const fm=document.getElementById('f-month')?.value||'';
@@ -1451,7 +2033,7 @@ function applyFilters(){
   const dfrom=document.getElementById('f-from')?.value||'';
   const dto=document.getElementById('f-to')?.value||'';
   FILTERED=RAW.filter(r=>{
-    if(fm&&r.logMonth!==fm)return false;
+    if(!monthMatch(r))return false;
     if(dfrom&&r.dateLog&&r.dateLog.slice(0,10)<dfrom)return false;
     if(dto&&r.dateLog&&r.dateLog.slice(0,10)>dto)return false;
     if(!deptMatch(r))return false;
@@ -1490,8 +2072,7 @@ function renderKPI(){
 
   const dfrom=document.getElementById('f-from')?.value||'';
   const dto=document.getElementById('f-to')?.value||'';
-  const fm=document.getElementById('f-month')?.value||'';
-  const cx=getCX(dfrom,dto,SEL_DAY,fm);
+  const cx=getCX(dfrom,dto,SEL_DAY,SEL_MONTHS);
   const slaPct = hasDeptFilter ? null : cx.sla_pct;
   const ats=cx.avg_talk_sec;
   const atStr=ats!==null?`${Math.floor(ats/60)}:${String(Math.round(ats%60)).padStart(2,'0')}`:'—';
@@ -1502,7 +2083,8 @@ function renderKPI(){
   const avgResMail=mailResSrc.length?+(avg(mailResSrc).toFixed(1)):null;
 
   const months=[...new Set(RAW.map(r=>r.logMonth).filter(Boolean))].sort((a,b)=>(MONTH_ORDER[a]||99)-(MONTH_ORDER[b]||99));
-  const curM=fm||(months.length?months[months.length-1]:'');
+  const _selLast=SEL_MONTHS.length?SEL_MONTHS[SEL_MONTHS.length-1]:'';
+  const curM=_selLast||(months.length?months[months.length-1]:'');
   const curMIdx=months.indexOf(curM);
   const prevM=curMIdx>0?months[curMIdx-1]:'';
   let dFCR=null,dFMR=null,dAbandon=null,dCallBack=null,dSLA=null,dAvgResCall=null,dAvgResMail=null;
@@ -1594,7 +2176,7 @@ function renderKPI(){
             ${dispStr}<span style="font-size:${sfxFs}px;font-weight:400;
               vertical-align:baseline;margin-left:1px;color:#1E1B3A">${sfx}</span>
           </div>
-          ${sub?`<div style="font-size:9.5px;color:#9CA3AF;font-family:'CPN','Inter',sans-serif;
+          ${sub?`<div class="kpi-donut-sub" style="font-size:9.5px;color:#9CA3AF;font-family:'CPN','Inter',sans-serif;
                     line-height:1;text-align:center;margin-top:1px">${sub}</div>`:''}
         </div>
       </div>
@@ -1626,7 +2208,7 @@ function renderKPI(){
       display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 14px;text-align:center;gap:0">
       <div style="font-size:14px;font-weight:700;color:#29C6C0;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px">CALL</div>
       <div style="font-size:64px;font-weight:300;color:#1E1B3A;line-height:1;font-family:'CPN','Inter',sans-serif">${kpiCallN}</div>
-      <div style="font-size:16px;font-weight:600;color:#9CA3AF;margin-top:6px">${callP}%</div>
+      <div class="kpi-share-pct" style="font-size:16px;font-weight:600;color:#9CA3AF;margin-top:6px">${callP}%</div>
       <div style="margin-top:6px">${callIcon}</div>
       <div style="margin-top:4px;padding-top:6px;border-top:1px solid rgba(41,198,192,.2);width:100%">
         <div style="font-size:10px;font-weight:600;color:#29C6C0;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Avg. Talk Time</div>
@@ -1643,17 +2225,17 @@ function renderKPI(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr) 1px repeat(2,1fr);gap:8px;align-items:start">
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(fcrPct,'%',`${fcrN}/${kpiCallN}สาย`,fcrPct,CALL_T,CALL_F,dFCR,true)}
+          ${mkDonut(fcrPct,'%',`${nc(fcrN)}/${nc(kpiCallN)} สาย`,fcrPct,CALL_T,CALL_F,dFCR,true)}
           ${lbl('1<sup style="font-size:9px">st</sup> Contact Resolution','#29C6C0')}
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(avgResCall,'วัน',`${callResSrc.length} case`,avgResCall!==null?Math.max(0,100-Math.min(avgResCall/7*100,100)):0,CALL_T,CALL_F,dAvgResCall,false)}
+          ${mkDonut(avgResCall,'วัน',`${nc(callResSrc.length)} case`,avgResCall!==null?Math.max(0,100-Math.min(avgResCall/7*100,100)):0,CALL_T,CALL_F,dAvgResCall,false)}
           ${lbl('Avg. Resolution Time')}
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(slaPct,'%',`${kpiCallN} สาย`,slaPct,BLUE_T,BLUE_F,dSLA,true)}
+          ${mkDonut(slaPct,'%',`${nc(kpiCallN)} สาย`,slaPct,BLUE_T,BLUE_F,dSLA,true)}
           ${lbl('Call Reach Rate')}
         </div>
 
@@ -1661,12 +2243,12 @@ function renderKPI(){
         <div style="background:rgba(255,143,171,.35);border-radius:1px;min-height:160px;align-self:stretch"></div>
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(abnPct,'%',`${abnVal} สาย`,Math.min(abnPct,100),RED_T,RED_F,dAbandon,false)}
+          ${mkDonut(abnPct,'%',`${nc(abnVal)} สาย`,Math.min(abnPct,100),RED_T,RED_F,dAbandon,false)}
           ${lbl('Abandon','#FF8FAB')}
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(cbPct,'%',`${abandonN}/${abnVal}สาย`,Math.min(cbPct,100),BLUE_T,BLUE_F,dCallBack,true)}
+          ${mkDonut(cbPct,'%',`${nc(abandonN)}/${nc(abnVal)} สาย`,Math.min(cbPct,100),BLUE_T,BLUE_F,dCallBack,true)}
           ${lbl('Call Back','#5B8DEF')}
         </div>
 
@@ -1682,7 +2264,7 @@ function renderKPI(){
       display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 14px;text-align:center">
       <div style="font-size:14px;font-weight:700;color:#6C5CE7;text-transform:uppercase;letter-spacing:.14em;margin-bottom:8px">MAIL</div>
       <div style="font-size:64px;font-weight:300;color:#6C5CE7;line-height:1;font-family:'CPN','Inter',sans-serif">${totalMailN}</div>
-      <div style="font-size:16px;font-weight:600;color:#9CA3AF;margin-top:6px">${mailP}%</div>
+      <div class="kpi-share-pct" style="font-size:16px;font-weight:600;color:#9CA3AF;margin-top:6px">${mailP}%</div>
       <div style="margin-top:12px">${mailIcon}</div>
     </div>
 
@@ -1695,12 +2277,12 @@ function renderKPI(){
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:start">
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(fmrPct,'%',`${fmrN}/${totalMailN} mail`,fmrPct,MAIL_T,MAIL_F,dFMR,true)}
+          ${mkDonut(fmrPct,'%',`${nc(fmrN)}/${nc(totalMailN)} mail`,fmrPct,MAIL_T,MAIL_F,dFMR,true)}
           ${lbl('1<sup style="font-size:9px">st</sup> Contact Resolution','#6C5CE7')}
         </div>
 
         <div style="display:flex;flex-direction:column;align-items:center">
-          ${mkDonut(avgResMail,'วัน',`${mailResSrc.length} mail`,avgResMail!==null?Math.max(0,100-Math.min(avgResMail/7*100,100)):0,MAIL_T,MAIL_F,dAvgResMail,false)}
+          ${mkDonut(avgResMail,'วัน',`${nc(mailResSrc.length)} mail`,avgResMail!==null?Math.max(0,100-Math.min(avgResMail/7*100,100)):0,MAIL_T,MAIL_F,dAvgResMail,false)}
           ${lbl('Avg. Resolution Time')}
         </div>
 
@@ -1726,7 +2308,7 @@ function renderTimeCards(){
     const resC=avgRes===null?'var(--gray)':avgRes<=0.5?'var(--green)':avgRes<=1?'var(--teal)':avgRes<=3?'var(--amber)':'var(--red)';
     return`<div class="tcard" style="flex:1;min-width:180px">
       <div class="tcard-title"><div class="dot" style="background:${dotColor}"></div>Resolution Time (All)</div>
-      <div class="trow"><span class="key">Case มีข้อมูล</span><span class="val">${ress.length} case</span></div>
+      <div class="trow"><span class="key">Case มีข้อมูล</span><span class="val">${nc(ress.length)} case</span></div>
       <div class="trow"><span class="key">เฉลี่ย</span><span class="val" style="color:${resC}">${nf2(avgRes)} วัน</span></div>
       <div class="trow"><span class="key">สูงสุด</span><span class="val" style="color:var(--red)">${nf2(maxRes)} วัน</span></div>
       <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px">
@@ -1745,10 +2327,10 @@ function renderTimeCards(){
     const rt0=rts.filter(x=>x===0).length, rt1=rts.filter(x=>x===1).length, rt2=rts.filter(x=>x>1).length;
     const mxR=Math.max(rt0,rt1,rt2,1);
     const rtC=avgRt===null?'var(--gray)':avgRt<=1?'var(--green)':avgRt<=3?'var(--amber)':'var(--red)';
-    return`<div class="tcard" style="flex:1;min-width:180px">
-      <div class="tcard-title"><div class="dot" style="background:${dotColor}"></div>Resolution Time (Level 2-Close)</div>
-      <div class="trow"><span class="key">Level 2 ทั้งหมด</span><span class="val">${lv2.length} case</span></div>
-      <div class="trow"><span class="key">Closed</span><span class="val" style="color:var(--green)">${lv2closed.length} case</span></div>
+    return`<div class="tcard tcard-nonfcr" style="flex:1.15;min-width:190px">
+      <div class="tcard-title"><div class="dot" style="background:${dotColor}"></div>Resolution Time (Non-FCR)</div>
+      <div class="trow"><span class="key">Non-FCR ทั้งหมด</span><span class="val">${nc(lv2.length)} case</span></div>
+      <div class="trow"><span class="key">Closed</span><span class="val" style="color:var(--green)">${nc(lv2closed.length)} case</span></div>
       <div class="trow"><span class="key">เฉลี่ย</span><span class="val" style="color:${rtC}">${nf2(avgRt)} วัน</span></div>
       <div class="trow"><span class="key">สูงสุด</span><span class="val" style="color:var(--red)">${nf2(maxRt)} วัน</span></div>
       <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px">
@@ -1764,9 +2346,9 @@ function renderTimeCards(){
     const pts=pend.map(r=>r.pendingTime).filter(x=>x!==null);
     const avgPt=avg(pts); const maxPt=pts.length?Math.max(...pts):null;
     const ptC=avgPt===null?'var(--gray)':avgPt>3?'var(--red)':avgPt>1?'var(--amber)':'var(--green)';
-    return`<div class="tcard" style="flex:1;min-width:180px">
+    return`<div class="tcard tcard-pend" style="flex:.7;min-width:138px">
       <div class="tcard-title"><div class="dot" style="background:${dotColor}"></div>Pending Time</div>
-      <div class="trow"><span class="key">Case ค้าง</span><span class="val" style="color:var(--amber)">${pend.length} case</span></div>
+      <div class="trow"><span class="key">Case ค้าง</span><span class="val" style="color:var(--amber)">${nc(pend.length)} case</span></div>
       <div class="trow"><span class="key">เฉลี่ย</span><span class="val" style="color:${ptC}">${nf2(avgPt)} วัน</span></div>
       <div class="trow"><span class="key">สูงสุด</span><span class="val" style="color:var(--red)">${nf2(maxPt)} วัน</span></div>
     </div>`;
@@ -1818,8 +2400,7 @@ function renderMVC(){
   const mailItems=MODE==='call'?[]:d.filter(r=>isMail(r));
   const dfrom=document.getElementById('f-from')?.value||'';
   const dto=document.getElementById('f-to')?.value||'';
-  const fm=document.getElementById('f-month')?.value||'';
-  const cx=getCX(dfrom,dto,SEL_DAY,fm);
+  const cx=getCX(dfrom,dto,SEL_DAY,SEL_MONTHS);
   const rColor=cx.sla_pct===null?'var(--gray)':cx.sla_pct>=90?'var(--green)':cx.sla_pct>=75?'var(--amber)':'var(--red)';
 
   const mkBar=(items,color)=>{
@@ -2015,7 +2596,7 @@ function renderDeptCaseTable(src,singleDept,fcrFilter){
     let tbl=`<table class="tbl"><thead><tr>
       <th>แผนก</th><th>KPI รวม</th><th>%</th>
       <th>📞 Call</th><th>🚫 Abandon</th><th>✉ Mail</th>
-      <th>Open</th><th>Pending</th><th>Closed</th><th>Avg Pending Time</th>
+      <th>Open</th><th>Pending</th><th>Closed</th><th class="keep-align">Avg. Pending Time</th>
       <th style="color:var(--teal)">Avg. Resolution Time</th>
     </tr></thead><tbody>`;
     depts.forEach(dept=>{
@@ -2042,7 +2623,7 @@ function renderDeptCaseTable(src,singleDept,fcrFilter){
         <td style="color:${open>0?'var(--blue)':'var(--gray)'}">${open}</td>
         <td style="color:${pnd>0?'var(--amber)':'var(--gray)'}">${pnd}</td>
         <td style="color:var(--green)">${closed}</td>
-        <td style="color:${avgPt&&avgPt>3?'var(--red)':'var(--green)'};font-weight:600">${nf(avgPt)}${avgPt!==null?' วัน':''}</td>
+        <td class="keep-align" style="color:${avgPt&&avgPt>3?'var(--red)':'var(--green)'};font-weight:600">${nf(avgPt)}${avgPt!==null?' วัน':''}</td>
         <td style="color:${resC};font-weight:600">${avgRes!==null?nf(avgRes)+' วัน':'—'}</td>
       </tr>`;
     });
@@ -2051,14 +2632,14 @@ function renderDeptCaseTable(src,singleDept,fcrFilter){
     const tAvgRes=tResRows.length?+(avg(tResRows.map(r=>r.resolutionTime)).toFixed(1)):null;
     const tResC=tAvgRes===null?'var(--gray)':tAvgRes<=0.5?'var(--green)':tAvgRes<=1?'var(--teal)':tAvgRes<=3?'var(--amber)':'var(--red)';
     tbl+=`<tr class="total-row">
-      <td>รวมทั้งหมด</td><td>${kpiSrc.length}</td><td>100%</td>
-      <td style="color:var(--blue)">${src.filter(isCallKpi).length}</td>
+      <td>รวมทั้งหมด</td><td>${nc(kpiSrc.length)}</td><td>100%</td>
+      <td style="color:var(--blue)">${nc(src.filter(isCallKpi).length)}</td>
       <td style="color:var(--red)">${src.filter(r=>r.logType==='Abandon').length||'—'}</td>
-      <td style="color:var(--purple)">${kpiSrc.filter(isMail).length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Open').length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Pending').length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Closed').length}</td>
-      <td>${nf(avg(tPts))}${tPts.length?' วัน':''}</td>
+      <td style="color:var(--purple)">${nc(kpiSrc.filter(isMail).length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Open').length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Pending').length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Closed').length)}</td>
+      <td class="keep-align">${nf(avg(tPts))}${tPts.length?' วัน':''}</td>
       <td style="color:${tResC};font-weight:700">${tAvgRes!==null?nf(tAvgRes)+' วัน':'—'}</td>
     </tr></tbody></table>`;
     el.innerHTML=tbl;
@@ -2101,12 +2682,12 @@ function renderDeptCaseTable(src,singleDept,fcrFilter){
       <td style="color:${s.open>0?'var(--blue)':'var(--gray)'}">${s.open||'—'}</td>
       <td style="color:${s.pend>0?'var(--amber)':'var(--gray)'}">${s.pend||'—'}</td>
       <td style="color:var(--green)">${s.closed||'—'}</td>
-      <td style="color:${s.avgPt&&s.avgPt>3?'var(--red)':'var(--green)'};font-weight:600">${nf(s.avgPt)}${s.avgPt!==null?' วัน':''}</td>`;
+      <td class="keep-align" style="color:${s.avgPt&&s.avgPt>3?'var(--red)':'var(--green)'};font-weight:600">${nf(s.avgPt)}${s.avgPt!==null?' วัน':''}</td>`;
     const typeEntries=Object.entries(typeMap).sort((a,b)=>b[1].rows.length-a[1].rows.length);
     let tbl=`<table class="tbl" id="issue-tbl"><thead><tr>
       <th>Type ByDetail / Issue Detail</th><th>KPI รวม</th><th>%</th>
       <th>📞 Call</th><th>🚫 Abandon</th><th>✉ Mail</th>
-      <th>Open</th><th>Pending</th><th>Closed</th><th>Avg Pending Time</th>
+      <th>Open</th><th>Pending</th><th>Closed</th><th class="keep-align">Avg. Pending Time</th>
     </tr></thead><tbody>`;
     typeEntries.forEach(([td,{rows,issues}],idx)=>{
       const s=calcStats(rows);s.abandon=abandonByType[td]||0;const gid=`grp-${idx}`;
@@ -2125,14 +2706,14 @@ function renderDeptCaseTable(src,singleDept,fcrFilter){
     });
     const tPts=kpiSrc.map(r=>r.pendingTime).filter(x=>x!==null);
     tbl+=`<tr class="total-row">
-      <td>รวมทั้งหมด</td><td>${kpiSrc.length}</td><td>100%</td>
-      <td style="color:var(--blue)">${src.filter(isCallKpi).length}</td>
+      <td>รวมทั้งหมด</td><td>${nc(kpiSrc.length)}</td><td>100%</td>
+      <td style="color:var(--blue)">${nc(src.filter(isCallKpi).length)}</td>
       <td style="color:var(--red)">${src.filter(r=>r.logType==='Abandon').length||'—'}</td>
-      <td style="color:var(--purple)">${kpiSrc.filter(isMail).length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Open').length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Pending').length}</td>
-      <td>${kpiSrc.filter(r=>r.status==='Closed').length}</td>
-      <td>${nf(avg(tPts))}${tPts.length?' วัน':''}</td>
+      <td style="color:var(--purple)">${nc(kpiSrc.filter(isMail).length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Open').length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Pending').length)}</td>
+      <td>${nc(kpiSrc.filter(r=>r.status==='Closed').length)}</td>
+      <td class="keep-align">${nf(avg(tPts))}${tPts.length?' วัน':''}</td>
     </tr></tbody></table>`;
     el.innerHTML=tbl;
   }
@@ -2148,13 +2729,13 @@ function renderMgmt(){
   const avgRt=avg(rts);
   const slowDepts=new Set(c2pend.filter(r=>r.pendingTime&&r.pendingTime>5).map(r=>r.contactDept).filter(Boolean));
   document.getElementById('mgmt-kpi').innerHTML=`
-    <div class="mgmt-card mc-blue"><div class="mlabel">Case Level 2 ทั้งหมด</div><div class="mval">${c2.length}</div><div class="msub">case ที่ส่งต่อ</div></div>
-    <div class="mgmt-card mc-amber"><div class="mlabel">Case Level 2 ที่ยังค้าง</div><div class="mval">${c2pend.length}</div><div class="msub">${pct(c2pend.length,c2.length)}% ของ Case Level 2</div></div>
+    <div class="mgmt-card mc-blue"><div class="mlabel">Non-FCR ทั้งหมด</div><div class="mval">${nc(c2.length)}</div><div class="msub">case ที่ส่งต่อ</div></div>
+    <div class="mgmt-card mc-amber"><div class="mlabel">Non-FCR ที่ยังค้าง</div><div class="mval">${nc(c2pend.length)}</div><div class="msub">${pct(c2pend.length,c2.length)}% ของ Non-FCR</div></div>
     <div class="mgmt-card mc-red"><div class="mlabel">แผนกค้างนาน (&gt;5 วัน)</div><div class="mval">${slowDepts.size}</div><div class="msub">${[...slowDepts].join(', ')||'—'}</div></div>
-    <div class="mgmt-card mc-green"><div class="mlabel">Avg Response Time</div><div class="mval">${nf(avgRt)}</div><div class="msub">วัน (เฉลี่ย Case Level 2)</div></div>`;
+    <div class="mgmt-card mc-green"><div class="mlabel">Avg Response Time</div><div class="mval">${nf(avgRt)}</div><div class="msub">วัน (เฉลี่ย Non-FCR)</div></div>`;
   const depts=[...new Set(c2.map(r=>r.contactDept).filter(Boolean))].sort();
   if(!depts.length){
-    document.getElementById('dept-perf-table').innerHTML='<div class="empty">ไม่มีข้อมูล Case Level 2</div>';
+    document.getElementById('dept-perf-table').innerHTML='<div class="empty">ไม่มีข้อมูล Non-FCR</div>';
     ['mgmt-dept-bar','mgmt-resp-bar','mgmt-pending-tbl'].forEach(id=>document.getElementById(id).innerHTML='<div class="empty">ไม่มีข้อมูล</div>');
     return;
   }
@@ -2172,7 +2753,7 @@ function renderMgmt(){
   }).sort((a,b)=>b.total-a.total);
   const maxTotal=Math.max(...deptStats.map(d=>d.total),1);
   const maxAvgR=Math.max(...deptStats.map(d=>d.avgR||0),1);
-  let tbl=`<table class="tbl dept-perf-tbl"><thead><tr><th>แผนก</th><th>Case Level 2</th><th>ดำเนินการแล้ว</th><th>ยังค้างอยู่</th><th style="color:var(--teal)">Avg. Resolution Time</th><th>Pending นานสุด</th><th>สถานะ</th></tr></thead><tbody>`;
+  let tbl=`<table class="tbl dept-perf-tbl"><thead><tr><th>แผนก</th><th>Non-FCR</th><th>ดำเนินการแล้ว</th><th>ยังค้างอยู่</th><th style="color:var(--teal)">Avg. Resolution Time</th><th>Pending นานสุด</th><th>สถานะ</th></tr></thead><tbody>`;
   deptStats.forEach(s=>{
     const rC=s.avgR===null?'#aaa':s.avgR<=3?'var(--green)':s.avgR<=7?'var(--amber)':'var(--red)';
     const resC=s.avgRes===null?'#aaa':s.avgRes<=1?'var(--green)':s.avgRes<=3?'var(--amber)':'var(--red)';
@@ -2195,11 +2776,11 @@ function renderMgmt(){
   };
   const topDepts=deptStats.filter(s=>s.total>0).sort((a,b)=>b.total-a.total);
   if(!topDepts.length){
-    document.getElementById('mgmt-top-dept-tbl').innerHTML='<div class="empty">ไม่มีข้อมูล Case Level 2</div>';
+    document.getElementById('mgmt-top-dept-tbl').innerHTML='<div class="empty">ไม่มีข้อมูล Non-FCR</div>';
     return;
   }
   let topTbl=`<table class="tbl"><thead><tr>
-    <th></th><th>อันดับ</th><th>แผนก</th><th>Case Level 2 ทั้งหมด</th>
+    <th></th><th>อันดับ</th><th>แผนก</th><th>Non-FCR ทั้งหมด</th>
     <th>ดำเนินการแล้ว</th><th>ยังค้างอยู่</th>
     <th>Top Issue</th><th style="color:var(--teal)">Avg. Resolution Time</th>
     <th style="color:var(--amber)">Avg. Response Time</th>
@@ -2220,7 +2801,7 @@ function renderMgmt(){
     // Dept row (clickable)
     topTbl+=`<tr class="td-row" onclick="(function(){const el=document.getElementById('${deptId}');el.style.display=el.style.display==='none'?'table-row-group':'none';this.querySelector('.drill-icon').textContent=el.style.display==='none'?'▶':'▼'}).call(this)" style="cursor:pointer">
       <td style="width:24px;text-align:center"><span class="drill-icon" style="font-size:10px;color:var(--gray)">▶</span></td>
-      <td><strong style="color:${rankColor};font-size:16px">#${i+1}</strong></td>
+      <td><strong class="mgmt-rank" style="color:${rankColor};font-size:16px">#${i+1}</strong></td>
       <td><strong>${s.dept}</strong></td>
       <td><strong style="color:var(--blue)">${s.total}</strong></td>
       <td style="color:var(--green)">${s.done}</td>
@@ -2286,7 +2867,7 @@ function renderPending(){
   const sort=document.getElementById('pend-sort')?.value||'pd-desc';
   const dfrom=document.getElementById('f-from')?.value||'';
   const dto  =document.getElementById('f-to')?.value||'';
-  const fm   =document.getElementById('f-month')?.value||'';
+  const fm   = SEL_MONTHS.length===1 ? SEL_MONTHS[0] : '';   // ใช้หาวันอ้างอิงเมื่อเลือกเดือนเดียว
   const dept =document.getElementById('f-dept')?.value||'';
   const level=document.getElementById('f-level')?.value||'';
 
@@ -2315,7 +2896,7 @@ function renderPending(){
     if(!r.dateLog||r.dateLog>refDate) return false;
     if(!deptMatch(r)) return false;
     if(level&&!r.caseLevel?.includes(level)) return false;
-    if(fm&&r.logMonth!==fm) return false;
+    if(!monthMatch(r)) return false;
     // กรองตาม MODE (Call/Mail/ทั้งหมด)
     if(MODE==='call'&&!isKpiCall(r)) return false;
     if(MODE==='mail'&&!isMail(r)) return false;
@@ -2341,7 +2922,7 @@ function renderPending(){
 
   const refLabel=refDate===today()?'วันนี้':fmtDate(refDate);
   document.getElementById('pend-summary').innerHTML=
-    `พบ <strong style="color:var(--amber)">${pend.length} case</strong> ที่ยังค้างอยู่ ณ ${refLabel}`;
+    `พบ <strong style="color:var(--amber)">${nc(pend.length)} case</strong> ที่ยังค้างอยู่ ณ ${refLabel}`;
   if(!pend.length){document.getElementById('pend-tbl').innerHTML='<div class="empty">ไม่มี Case ค้างอยู่ 🎉</div>';return;}
   const pdC=pd=>pd>=7?'b-slow':pd>=3?'b-warn':'b-ok';
   document.getElementById('pend-tbl').innerHTML=`<table class="tbl"><thead><tr>
@@ -2367,6 +2948,8 @@ function renderPending(){
 // WEEKLY — ใช้ปีปฏิทิน ISO 8601
 // ══════════════════════════════════════════════════════
 let WK_MONTH='', WK_WEEK='overview';
+// เลือกได้หลายเดือน — array ว่าง = ทุกเดือน
+let WK_MONTHS=[];
 
 function calcWkStats(rows){
   const log_refer=new Set(rows.map(r=>String(r.logRefer||'').trim()).filter(v=>v&&v!=='undefined'));
@@ -2409,18 +2992,43 @@ function renderWeekly(){
     .map(([key,{year,week,rows}])=>({key,year,week,rows}))
     .sort((a,b)=>a.year!==b.year?a.year-b.year:a.week-b.week);
 
-  if(!WK_MONTH||(!months.includes(WK_MONTH)&&WK_MONTH!=='ALL'))WK_MONTH='ALL';
+  // ── ตัดเดือนที่ไม่มีข้อมูลแล้วออกจากที่เลือกไว้ ──
+  // เรียงตามปฏิทินเสมอ ไม่ว่าจะคลิกเดือนไหนก่อน
+  WK_MONTHS=WK_MONTHS.filter(m=>months.includes(m)).sort((a,b)=>months.indexOf(a)-months.indexOf(b));
+  const allMonths=WK_MONTHS.length===0;               // ว่าง = ทุกเดือน
+  WK_MONTH=allMonths?'ALL':WK_MONTHS.join(', ');      // เก็บไว้ให้ส่วนอื่นที่อ้างถึงใช้
 
   document.getElementById('wk-month-tabs-area').innerHTML=
-    `<button class="wk-month-btn${WK_MONTH==='ALL'?' on':''}" onclick="setWkMonth('ALL')">📋 ทุกเดือน</button>`+
-    months.map(m=>`<button class="wk-month-btn${m===WK_MONTH?' on':''}" onclick="setWkMonth('${m}')">${m}</button>`).join('');
+    `<button class="wk-month-btn${allMonths?' on':''}" onclick="clearWkMonths()" title="แสดงทุกเดือน">📋 ทุกเดือน</button>`+
+    months.map(m=>{
+      const on=WK_MONTHS.includes(m);
+      return `<button class="wk-month-btn${on?' on':''}" onclick="toggleWkMonth('${m}')"
+        title="${on?'คลิกเพื่อเอาออก':'คลิกเพื่อเพิ่มเดือนนี้'}">${on?'✓ ':''}${m}</button>`;
+    }).join('')+
+    (allMonths?'':`<span class="wk-month-count">เลือก ${nc(WK_MONTHS.length)} เดือน · ${WK_MONTHS.join(', ')}</span>`);
 
-  const activeWeeks=WK_MONTH==='ALL'?allWeeksSorted:(monthMap[WK_MONTH]||[]).sort((a,b)=>a.week-b.week);
+  // รวมสัปดาห์ของทุกเดือนที่เลือก แล้วเรียงตามเวลา
+  const activeWeeks=allMonths
+    ? allWeeksSorted
+    : WK_MONTHS.flatMap(m=>monthMap[m]||[])
+        .sort((a,b)=>a.year!==b.year?a.year-b.year:a.week-b.week);
   if(WK_WEEK!=='overview'&&!activeWeeks.some(w=>w.key===WK_WEEK))WK_WEEK='overview';
 
+  // ── Filter เลือกสัปดาห์ (dropdown) — ตัวเลือกแรกคือภาพรวมทุกสัปดาห์ ──
+  const isOv=WK_WEEK==='overview';
   document.getElementById('wk-week-tabs-area').innerHTML=
-    `<button class="wk-week-btn overview${WK_WEEK==='overview'?' on':''}" onclick="setWkWeek('overview')">📊 ภาพรวม</button>`+
-    activeWeeks.map(({key,year,week})=>`<button class="wk-week-btn${WK_WEEK===key?' on':''}" onclick="setWkWeek('${key}')">${isoWeekShort(year,week)}</button>`).join('');
+    `<div class="wk-week-filter">
+      <span class="wk-week-filter-lbl">สัปดาห์:</span>
+      <select id="wk-week-sel" class="${isOv?'':'on'}" onchange="setWkWeek(this.value)">
+        <option value="overview"${isOv?' selected':''}>📊 ภาพรวมทุกสัปดาห์</option>
+        ${activeWeeks.map(({key,year,week})=>
+          `<option value="${key}"${WK_WEEK===key?' selected':''}>${isoWeekShort(year,week)}</option>`).join('')}
+      </select>
+      <span class="wk-week-filter-note">${isOv
+        ? `รวม ${nc(activeWeeks.length)} สัปดาห์`
+        : `เลือก 1 สัปดาห์ จาก ${nc(activeWeeks.length)} สัปดาห์`}</span>
+      ${isOv?'':`<button type="button" class="wk-week-reset" onclick="setWkWeek('overview')">✕ กลับไปภาพรวม</button>`}
+    </div>`;
 
   if(WK_WEEK==='overview'){
     renderWkOverview(activeWeeks, activeWeeks, hasDeptFilter);
@@ -2431,7 +3039,15 @@ function renderWeekly(){
   }
 }
 
-function setWkMonth(m){WK_MONTH=m;WK_WEEK='overview';renderWeekly();}
+// เลือก/เอาออกได้ทีละเดือน (เลือกได้หลายเดือน)
+function toggleWkMonth(m){
+  const i=WK_MONTHS.indexOf(m);
+  if(i>=0) WK_MONTHS.splice(i,1); else WK_MONTHS.push(m);
+  WK_WEEK='overview';renderWeekly();
+}
+function clearWkMonths(){WK_MONTHS=[];WK_WEEK='overview';renderWeekly();}
+// เผื่อโค้ดเก่าเรียก setWkMonth อยู่ — 'ALL' = ล้างทั้งหมด
+function setWkMonth(m){if(m==='ALL')WK_MONTHS=[];else WK_MONTHS=[m];WK_WEEK='overview';renderWeekly();}
 function setWkWeek(w){WK_WEEK=w;renderWeekly();}
 
 
@@ -2456,7 +3072,7 @@ function renderWkOverview(weeks,allWks,hasDeptFilter=false){
     <th>Total Call</th>
     <th>FCR</th><th>Total Mail</th><th>FCR (Mail)</th>
     ${hasDeptFilter?'':'<th>Abandon</th>'}<th${hasDeptFilter?' style="display:none"':''}>Avg. Talk Time</th>
-    <th>Case Level 2</th><th>Pending</th>
+    <th>Non-FCR</th><th>Pending</th>
   </tr></thead><tbody>`;
   stats.forEach(({year,week,s,cx_wk},i)=>{
     const prev=i>0?stats[i-1].s:null;
@@ -2468,7 +3084,7 @@ function renderWkOverview(weeks,allWks,hasDeptFilter=false){
       if(prv===null||prv===undefined)return'';
       const diff=cur-prv;if(diff===0)return`<span style="color:#94a3b8;font-size:10px">±0</span>`;
       const up=diff>0;const good=lower?!up:up;
-      return`<span style="color:${good?'var(--green)':'var(--red)'};font-size:10px">${up?'▲':'▼'}${Math.abs(diff)}</span>`;
+      return`<span style="color:${good?'var(--green)':'var(--red)'};font-size:10px">${up?'▲':'▼'}${nc(Math.abs(diff))}</span>`;
     };
     tbl+=`<tr onclick="setWkWeek('${year}-W${String(week).padStart(2,'0')}')" style="cursor:pointer">
       <td style="font-weight:700;color:var(--blue)">W${week}</td>
@@ -2741,7 +3357,7 @@ function renderWkDetail(wkData,allWeeks){
     if(prv===null||prv===undefined)return'<span class="wk-delta d-neu">—</span>';
     const diff=cur-prv;if(diff===0)return`<span class="wk-delta d-neu">±0${suffix}</span>`;
     const up=diff>0;const good=lowerIsBetter?!up:up;
-    return`<span class="wk-delta ${good?'d-up':'d-dn'}">${up?'▲':'▼'}${Math.abs(parseFloat(diff.toFixed(1)))}${suffix}</span>`;
+    return`<span class="wk-delta ${good?'d-up':'d-dn'}">${up?'▲':'▼'}${nc(Math.abs(parseFloat(diff.toFixed(1))))}${suffix}</span>`;
   };
 
   const fcrC=s.fcrPct>=90?'var(--green)':s.fcrPct>=75?'var(--amber)':'var(--red)';
@@ -2755,13 +3371,13 @@ function renderWkDetail(wkData,allWeeks){
       <div class="wk-kpi wk-purple" style="--before-bg:var(--purple)"><div class="wk-label">1st Contact Res.</div><div class="wk-val" style="color:${fmrC}">${s.fmrPct}%</div><div class="wk-sub">${s.fmrN}/${s.mailN} Mail</div>${mkDelta(s.fmrPct,prev?.fmrPct,false,'%')}</div>
       <div class="wk-kpi wk-red"><div class="wk-label">Abandon (3CX)</div><div class="wk-val">${cx_wk.abn_3cx||'—'}</div><div class="wk-sub"></div>${mkDelta(cx_wk.abn_3cx||0,(getCXForWeek(prevWk?.year,prevWk?.week)||{}).abn_3cx||0,true)}</div>
       <div class="wk-kpi wk-indigo"><div class="wk-label">Avg Talk Time</div><div class="wk-val mono" style="font-size:20px">${atStr}</div><div class="wk-sub">นาที:วินาที (3CX)</div></div>
-      <div class="wk-kpi wk-amber"><div class="wk-label">Case Level 2</div><div class="wk-val">${s.lv2N}</div><div class="wk-sub">ส่งต่อ</div>${mkDelta(s.lv2N,prev?.lv2N,true)}</div>
+      <div class="wk-kpi wk-amber"><div class="wk-label">Non-FCR</div><div class="wk-val">${s.lv2N}</div><div class="wk-sub">ส่งต่อ</div>${mkDelta(s.lv2N,prev?.lv2N,true)}</div>
     </div>`;
 
   // Daily breakdown (days in this week)
   const dayRows_=[...new Set(rows.filter(r=>r.dateLog).map(r=>r.dateLog))].sort();
   const THDAY_=['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'];
-  const dayTbl=dayRows_.length?`<table class="tbl"><thead><tr><th>วัน</th><th>Total Call</th><th>KPI Call</th><th>FCR</th><th>Mail</th><th>FCR (Mail)</th><th>Case Lv2</th><th>Pending</th></tr></thead><tbody>`+dayRows_.map(d=>{
+  const dayTbl=dayRows_.length?`<table class="tbl"><thead><tr><th>วัน</th><th>Total Call</th><th>KPI Call</th><th>FCR</th><th>Mail</th><th>FCR (Mail)</th><th>Non-FCR</th><th>Pending</th></tr></thead><tbody>`+dayRows_.map(d=>{
     const dr=rows.filter(r=>r.dateLog===d);
     const ds=calcWkStats(dr);
     const dt=new Date(d+'T00:00:00');
@@ -2778,7 +3394,7 @@ function renderWkDetail(wkData,allWeeks){
 
   // Dept breakdown
   const depts=[...new Set(rows.map(r=>r.typeDept).filter(Boolean))].sort();
-  const deptTbl=depts.length?`<table class="tbl"><thead><tr><th>แผนก</th><th>Total Call</th><th>KPI Call</th><th>FCR</th><th>Mail</th><th>FCR (Mail)</th><th>Case Lv2</th></tr></thead><tbody>`+depts.map(dept=>{
+  const deptTbl=depts.length?`<table class="tbl"><thead><tr><th>แผนก</th><th>Total Call</th><th>KPI Call</th><th>FCR</th><th>Mail</th><th>FCR (Mail)</th><th>Non-FCR</th></tr></thead><tbody>`+depts.map(dept=>{
     const dr=rows.filter(r=>r.typeDept===dept);
     const ds=calcWkStats(dr);
     return`<tr class="td-row"><td><strong>${dept}</strong></td>
@@ -2796,7 +3412,7 @@ function renderWkDetail(wkData,allWeeks){
   const top5H=topIssues.map(([l,n],i)=>`<div class="brow" style="margin-bottom:7px"><span class="rnum${i<3?' top':''}">${i+1}</span><div style="flex:1;min-width:0"><div style="font-size:11px;color:var(--gray);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l}</div><div style="display:flex;align-items:center;gap:5px"><div style="flex:1;background:#F4F5F7;border-radius:4px;height:18px;overflow:hidden"><div style="width:${Math.round(n/mx*100)}%;height:100%;background:#7C6FB5;border-radius:4px;display:flex;align-items:center;padding-left:6px"><span style="font-size:11px;font-weight:700;color:#fff">${n>2?n:''}</span></div></div><span style="font-size:12px;font-weight:700">${n}</span></div></div></div>`).join('')||'<div class="empty">ไม่มีข้อมูล</div>';
 
   // Prev week info
-  const prevInfo=prevWk?`เทียบกับ W${prevWk.week}: Total Call ${prevWk.rows.filter(isTotalCall).length} | FCR ${calcWkStats(prevWk.rows).fcrPct}%`:'ไม่มีสัปดาห์ก่อนหน้า';
+  const prevInfo=prevWk?`เทียบกับ W${prevWk.week}: Total Call ${nc(prevWk.rows.filter(isTotalCall).length)} | FCR ${calcWkStats(prevWk.rows).fcrPct}%`:'ไม่มีสัปดาห์ก่อนหน้า';
 
   document.getElementById('wk-content').innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:6px">
@@ -3026,7 +3642,7 @@ function makeAreaBarCombo(elId, all12, dataMonths, fcrData, nfcrData, areaColor,
   // x-axis labels
   pts.forEach(p=>{
     const mLabel=months[pts.indexOf(p)];
-    const isSelM=MONTHLY_SEL_M&&mLabel===MONTHLY_SEL_M&&p.has;
+    const isSelM=isSelMonth(mLabel)&&p.has;
     if(isSelM){
       svg+=`<rect x="${(p.x-16).toFixed(1)}" y="${(yBase+6).toFixed(1)}" width="32" height="18" rx="9"
         fill="var(--primary)" opacity="0.15"/>`;
@@ -3142,7 +3758,9 @@ function makeCleanBarChart(elId, months, dataMonths, series, yMax, unit){
       svg+=`<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${dotR}"
         fill="${s.color}" opacity="0.92"/>`;
       // value label - อยู่เหนือ dot เสมอ
-      const dispV=isPct?(p.v+'%'):(unitLabel?p.v+unitLabel:p.v);
+      // s.dec = จำนวนตำแหน่งทศนิยมของป้ายตัวเลข (ไม่ใส่ = แสดงตามค่าเดิม)
+      const vStr=(s.dec!==undefined&&p.v!==null&&p.v!==undefined)?Number(p.v).toFixed(s.dec):p.v;
+      const dispV=isPct?(vStr+'%'):(unitLabel?vStr+unitLabel:vStr);
       const lblY=(p.y-dotR-7).toFixed(1);
       svg+=`<text x="${p.x.toFixed(1)}" y="${lblY}"
         text-anchor="middle" font-size="11" font-weight="700"
@@ -3152,14 +3770,14 @@ function makeCleanBarChart(elId, months, dataMonths, series, yMax, unit){
 
   // x-axis labels
   pts.forEach((pt,i)=>{
-    const isSelM=MONTHLY_SEL_M&&pt.m===MONTHLY_SEL_M;
+    const isSelM=isSelMonth(pt.m);
     if(isSelM&&pt.has){
       // highlight background
       svg+=`<rect x="${(xPos[i]-16).toFixed(1)}" y="${(yBase+6).toFixed(1)}" width="32" height="18" rx="9"
         fill="var(--primary)" opacity="0.15"/>`;
     }
     svg+=`<text x="${xPos[i].toFixed(1)}" y="${(yBase+20).toFixed(1)}"
-      text-anchor="middle" font-size="10.5" font-weight="${isSelM&&pt.has?'800':'500'}"
+      class="mchart-xlabel" text-anchor="middle" font-size="10.5" font-weight="${isSelM&&pt.has?'800':'500'}"
       fill="${isSelM&&pt.has?'var(--primary)':pt.has?'#4B5563':'#D1D5DB'}">${pt.m}</text>`;
   });
 
@@ -3898,7 +4516,7 @@ function renderTopIssuePage(){
     <td style="text-align:right;padding:8px 10px;color:var(--teal)">${Math.round(top10Total/total*100)}%</td>
   </tr>`;
 
-  const tbl=`<table class="tbl" style="min-width:${280+months.length*70}px;font-size:11px;border-collapse:collapse;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+  const tbl=`<table class="tbl keep-align" style="min-width:${280+months.length*70}px;font-size:11px;border-collapse:collapse;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
     <thead><tr>
       <th class="th-dark" style="min-width:180px;text-align:left;padding:10px 12px">${col==='typeDetail'?'Type ByDetail':'Issue Detail'} (Top 10)</th>
       ${months.map(m=>`<th class="th-dark-mint" style="text-align:center;padding:10px 10px">${m}</th>`).join('')}
@@ -4001,7 +4619,7 @@ function renderParetoInEl(el, top10, total, colLabel){
       <rect x="${tipX.toFixed(1)}" y="${tipY.toFixed(1)}" width="${tipW.toFixed(0)}" height="28" rx="7" fill="#1E1B3A"/>
       <polygon points="${arrowX.toFixed(1)},${(tipY+30).toFixed(1)} ${(arrowX-5).toFixed(1)},${(tipY+27).toFixed(1)} ${(arrowX+5).toFixed(1)},${(tipY+27).toFixed(1)}" fill="#1E1B3A"/>
       <text x="${(+tipX+tipW/2).toFixed(1)}" y="${(+tipY+18).toFixed(1)}"
-        text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">${label}: ${n2}</text>
+        text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">${label}: ${nc(n2)}</text>
     </g>`;
   });
 
@@ -4444,7 +5062,7 @@ function renderFCRSummary(){
     const up=diff>0,zero=diff===0;
     const col=zero?'#94a3b8':up?'#16a34a':'#dc2626';
     const icon=zero?'→':up?'▲':'▼';
-    return`<span style="font-size:11px;font-weight:700;color:${col}">${icon}${Math.abs(diff)}${suffix}</span>`;
+    return`<span style="font-size:11px;font-weight:700;color:${col}">${icon}${nc(Math.abs(diff))}${suffix}</span>`;
   };
   const mkRing=(pct,color,size=52)=>{
     const R=size/2-5,circ=2*Math.PI*R,dash=pct!==null?circ*(pct/100):0;
@@ -4466,7 +5084,7 @@ function renderFCRSummary(){
       <div style="position:absolute;right:14px;top:14px">${mkRing(fcrPct,fcrCol,60)}</div>
       <div style="font-size:10px;font-weight:700;color:#065f46;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">📞 First Contact Resolution (FCR)</div>
       <div style="font-size:30px;font-weight:800;color:${fcrCol};line-height:1">${fcrPct}%</div>
-      <div style="font-size:11px;color:#047857;margin-top:3px">${callLv1} / ${callTotal} case — Level 1</div>
+      <div style="font-size:11px;color:#047857;margin-top:3px">${nc(callLv1)} / ${nc(callTotal)} case — Level 1</div>
       <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.7);border-radius:8px;padding:6px 10px;min-width:70px">
           <div style="font-size:9px;color:#64748b;font-weight:600;text-transform:uppercase;margin-bottom:2px">Non-FCR</div>
@@ -4489,7 +5107,7 @@ function renderFCRSummary(){
       <div style="position:absolute;right:14px;top:14px">${mkRing(fmrPct,fmrCol,60)}</div>
       <div style="font-size:10px;font-weight:700;color:#4c1d95;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">✉ First Contact Resolution (FCR)</div>
       <div style="font-size:30px;font-weight:800;color:${fmrCol};line-height:1">${fmrPct}%</div>
-      <div style="font-size:11px;color:#6d28d9;margin-top:3px">${mailLv1} / ${mailTotal} mail — Level 1</div>
+      <div style="font-size:11px;color:#6d28d9;margin-top:3px">${nc(mailLv1)} / ${nc(mailTotal)} mail — Level 1</div>
       <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap">
         <div style="background:rgba(255,255,255,.7);border-radius:8px;padding:6px 10px;min-width:70px">
           <div style="font-size:9px;color:#64748b;font-weight:600;text-transform:uppercase;margin-bottom:2px">Non-FCR</div>
@@ -4663,7 +5281,7 @@ function renderFCRDrillTbl(){
   const visibleEntries=FCR_SHOW==='nonfcr'?sorted.filter(([,v])=>v.nonfcr.length>0):
     FCR_SHOW==='esc'?sorted.filter(([,v])=>v.esc.length>0):sorted;
 
-  document.getElementById('fcr-drill-count').textContent=`แสดง ${visibleEntries.length} / ${sorted.length} รายการ`;
+  document.getElementById('fcr-drill-count').textContent=`แสดง ${nc(visibleEntries.length)} / ${nc(sorted.length)} รายการ`;
 
   if(!visibleEntries.length){document.getElementById('fcr-drill-tbl').innerHTML='<div class="empty">ไม่มีข้อมูล</div>';return;}
   const total=src.length||1;
@@ -4709,9 +5327,9 @@ function renderFCRDrillTbl(){
       ><td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${td}">${toggleBtn}<strong>${td}</strong>${fcrBar}</td>
       <td><strong>${tot}</strong></td>
       <td style="color:var(--gray);font-size:11px">${Math.round(tot/total*100)}%</td>
-      <td style="color:#2E7D32;font-weight:700">${v.fcr.length}</td>
+      <td style="color:#2E7D32;font-weight:700">${nc(v.fcr.length)}</td>
       <td><span class="badge" style="background:${fcrPct2>=80?'#dcfce7':'#fef3c7'};color:${fcrPct2>=80?'#15803d':'#92400e'}">${fcrPct2}%</span></td>
-      <td style="color:#7c3aed;font-weight:700">${v.nonfcr.length}</td>
+      <td style="color:#7c3aed;font-weight:700">${nc(v.nonfcr.length)}</td>
       <td><span class="badge" style="background:${nfcrPct2>=30?'#fce7f3':'#f3e8ff'};color:${nfcrPct2>=30?'#9d174d':'#581c87'}">${nfcrPct2}%</span></td>
       <td style="color:${resC};font-weight:700">${avgResRow!==null?avgResRow+' วัน':'—'}</td>
       <td style="color:${escN2>0?'var(--red)':'var(--green)'};font-weight:700">${escN2||'—'}</td>
@@ -4729,9 +5347,9 @@ function renderFCRDrillTbl(){
         <td style="padding-left:34px;font-size:11px;color:var(--gray);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${id}">↳ ${id}</td>
         <td>${itot}</td>
         <td style="color:var(--gray);font-size:11px">${Math.round(itot/total*100)}%</td>
-        <td style="color:#2E7D32;font-weight:700">${iv.fcr.length}</td>
+        <td style="color:#2E7D32;font-weight:700">${nc(iv.fcr.length)}</td>
         <td><span class="badge" style="background:${ifcrPct>=80?'#dcfce7':'#fef3c7'};color:${ifcrPct>=80?'#15803d':'#92400e'}">${ifcrPct}%</span></td>
-        <td style="color:#7c3aed;font-weight:700">${iv.nonfcr.length}</td>
+        <td style="color:#7c3aed;font-weight:700">${nc(iv.nonfcr.length)}</td>
         <td><span class="badge" style="background:${inPct>=30?'#fce7f3':'#f3e8ff'};color:${inPct>=30?'#9d174d':'#581c87'}">${inPct}%</span></td>
         <td style="color:${iv.esc.length>0?'var(--red)':'var(--green)'}">${iv.esc.length||'—'}</td>
         <td style="font-size:11px;color:var(--gray);max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${iCtDepts}</td>
@@ -4848,7 +5466,7 @@ function renderFCREscList(){
     });
     const allRts=rows.map(r=>r.responseTime).filter(x=>x!==null);
     const gAvgR=allRts.length?avg(allRts):null;
-    tbl+=`<tr class="total-row"><td>รวมทั้งหมด</td><td>${rows.length}</td><td>100%</td><td style="font-weight:700">${nf(gAvgR)}${gAvgR!==null?' วัน':''}</td><td>—</td><td>—</td></tr></tbody></table>`;
+    tbl+=`<tr class="total-row"><td>รวมทั้งหมด</td><td>${nc(rows.length)}</td><td>100%</td><td style="font-weight:700">${nf(gAvgR)}${gAvgR!==null?' วัน':''}</td><td>—</td><td>—</td></tr></tbody></table>`;
     document.getElementById('fcr-esc-list').innerHTML=tbl;
     return;
   }
@@ -4935,9 +5553,19 @@ const CX_URL          = `${DATA_BASE}/3cx_Report.csv`;
 const ABN_HISTORY_URL = `${DATA_BASE}/abandoned_calls_history.json`;
 const ABN_LIVE_URL    = `${DATA_BASE}/abandoned_calls.json`;
 
+// เปิดไฟล์ตรงๆ (file://) ใช่ไหม — ถ้าใช่ ให้ดึงข้อมูลจาก GitHub โดยตรง
+const _openedAsFile = location.protocol === 'file:';
+
 // ดึงข้อมูลจากแหล่งหลักก่อน ถ้าไม่สำเร็จค่อยลองแหล่งสำรอง
 async function fetchData(url){
   const bust = (u) => u + (u.includes('?') ? '&' : '?') + 't=' + Date.now();
+  // ── โหมดเปิดจากไฟล์: ข้ามการอ่านไฟล์ข้างเครื่อง (เบราว์เซอร์บล็อก) ไปดึงจาก GitHub ตรงๆ ──
+  if(_openedAsFile && DATA_FALLBACK){
+    const gh = bust(url.replace(DATA_BASE, DATA_FALLBACK));
+    const res = await fetch(gh);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res;
+  }
   try{
     const res = await fetch(bust(url));
     if(res.ok) return res;
@@ -4980,7 +5608,7 @@ async function loadOfficialAbandon(){
         const d=String(ct).slice(0,10);
         if(d.length===10) byDate[d]=(byDate[d]||0)+1;
       });
-      syncLog(`Official Abandon (history) โหลดแล้ว: ${(h.calls||[]).length} สาย`,'ok');
+      syncLog(`Official Abandon (history) โหลดแล้ว: ${nc((h.calls||[]).length)} สาย`,'ok');
     }
   }catch(e){ console.warn('[OFFICIAL_ABANDON] history load failed:', e.message); }
 
@@ -5007,35 +5635,51 @@ async function loadOfficialAbandon(){
   console.debug('[OFFICIAL_ABANDON]', OFFICIAL_ABANDON);
 }
 
-async function autoLoad(){
-  console.log('[AutoSync] เริ่มต้นโหลดข้อมูลระบบ...');
-  syncLog('เริ่ม AutoSync…');
-
-  // ── ตรวจการเปิดไฟล์แบบ file:// (ดับเบิลคลิกไฟล์ตรงๆ) ──
-  // เบราว์เซอร์จะบล็อกการดึงข้อมูลจากภายนอกเสมอ (โดยเฉพาะบนมือถือ) ทำให้หน้าขาวเปล่า
-  // จึงแจ้งเตือนให้ชัดเจนแทนที่จะปล่อยให้ค้างเงียบๆ
-  if(location.protocol === 'file:'){
-    const msg = `<div style="position:fixed;inset:0;z-index:99999;background:#F4F5F7;
+// ══════════════════════════════════════════════════════
+//  โหมด "เปิดไฟล์ตรงๆ" (file://) — กล่องเตือนเมื่อดึงข้อมูลไม่ได้
+//  (แถบแจ้งเตือนมุมซ้ายล่าง "โหมดเปิดจากไฟล์" ถูกเอาออกแล้ว)
+// ══════════════════════════════════════════════════════
+function showFileModeBlocked(){
+  if(document.getElementById('file-mode-blocked'))return;
+  const msg = `<div id="file-mode-blocked" style="position:fixed;inset:0;z-index:99999;background:#F4F5F7;
         display:flex;align-items:center;justify-content:center;padding:24px;
         font-family:'CPN','Inter',sans-serif">
       <div style="max-width:460px;background:#fff;border-radius:16px;padding:28px 24px;
           box-shadow:0 8px 32px rgba(0,0,0,.10);text-align:center">
         <div style="font-size:40px;margin-bottom:10px">📂</div>
         <div style="font-size:17px;font-weight:700;color:#1E1B3A;margin-bottom:10px">
-          เปิดไฟล์แบบนี้ไม่ได้ค่ะ</div>
+          ดึงข้อมูลไม่สำเร็จค่ะ</div>
         <div style="font-size:13px;color:#5F5E5A;line-height:1.7;margin-bottom:18px">
-          เบราว์เซอร์บล็อกการโหลดข้อมูลเมื่อเปิดไฟล์จากเครื่องโดยตรง
-          (โดยเฉพาะบนมือถือ) กรุณาเปิดผ่านลิงก์เว็บแทน</div>
+          เปิดไฟล์จากเครื่องได้ แต่ดึงข้อมูลจาก GitHub ไม่ผ่าน
+          (อาจไม่ได้ต่ออินเทอร์เน็ต หรือเน็ตบริษัทบล็อกอยู่)<br>
+          ลองเปิดผ่านลิงก์เว็บ หรืออัปโหลดไฟล์ Call Log เองก็ได้ค่ะ</div>
         <a href="https://cds-scm.github.io/Partner-Service-Dashboard/PartnerService_Dashboard.html"
            style="display:inline-block;background:#185FA5;color:#fff;text-decoration:none;
            padding:11px 22px;border-radius:10px;font-size:14px;font-weight:600">
           เปิด Dashboard บนเว็บ →</a>
+        <div style="margin-top:12px">
+          <button onclick="document.getElementById('file-mode-blocked').remove()"
+            style="border:1.5px solid #E5E4E0;background:#fff;color:#5F5E5A;padding:9px 18px;
+            border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;
+            font-family:'CPN','Inter',sans-serif">ปิดหน้านี้ แล้วอัปโหลดไฟล์เอง</button>
+        </div>
         <div style="font-size:11px;color:#9A9A96;margin-top:16px;line-height:1.6">
           หรือถ้าอยู่บนคอม: วางไฟล์นี้ไว้กับ LocalServer.exe แล้วเปิดโปรแกรมนั้นแทน</div>
       </div></div>`;
-    document.body.insertAdjacentHTML('beforeend', msg);
-    console.warn('[AutoSync] เปิดด้วย file:// — ไม่สามารถโหลดข้อมูลได้');
-    return;
+  document.body.insertAdjacentHTML('beforeend', msg);
+}
+
+async function autoLoad(){
+  console.log('[AutoSync] เริ่มต้นโหลดข้อมูลระบบ...');
+  syncLog('เริ่ม AutoSync…');
+
+  // ── ตรวจการเปิดไฟล์แบบ file:// (ดับเบิลคลิกไฟล์ตรงๆ) ──
+  // เบราว์เซอร์บล็อกการ "อ่านไฟล์ข้างเครื่อง" แต่ "ดึงจาก GitHub" ได้ปกติ
+  // → จึงดึงข้อมูลจาก GitHub ให้เลย และแจ้งเป็นแถบเล็กๆ ไม่บังหน้าจอ
+  // (ถ้าดึงไม่สำเร็จจริง ค่อยแสดงกล่องแจ้งเตือนเต็มจอในส่วน catch ด้านล่าง)
+  if(_openedAsFile){
+    if(!DATA_FALLBACK){ showFileModeBlocked(); return; }
+    console.warn('[AutoSync] เปิดด้วย file:// — ดึงข้อมูลจาก GitHub โดยตรง');
   }
 
   // แสดง loading overlay ถ้ายังไม่มีข้อมูล
@@ -5080,7 +5724,7 @@ async function autoLoad(){
         data=JSON.parse(jsonText);
         if(data?.value&&Array.isArray(data.value))data=data.value;
         if(!Array.isArray(data)||!data.length)data=null;
-        if(data)syncLog(`JSON parsed: ${data.length} records`,'ok');
+        if(data)syncLog(`JSON parsed: ${nc(data.length)} records`,'ok');
         else syncLog('JSON ไม่มีข้อมูล','warn');
       }catch(pe){syncLog('JSON parse error: '+pe.message,'err');}
       if(data&&data.length){
@@ -5088,7 +5732,7 @@ async function autoLoad(){
         const ea=document.getElementById('err-area');if(ea)ea.innerHTML='';
         const now=new Date().toLocaleTimeString('th-TH');
         document.getElementById('d-badge').textContent=`📊 ${RAW.length.toLocaleString()} รายการ (Auto-Sync ${now})`;
-        syncLog(`processLogData เสร็จ — RAW: ${RAW.length} rows`,'ok');
+        syncLog(`processLogData เสร็จ — RAW: ${nc(RAW.length)} rows`,'ok');
       } else {
         throw new Error(`ดึง JSON ไม่ได้ (HTTP ${jsonRes.status})`);
       }
@@ -5110,7 +5754,7 @@ async function autoLoad(){
           return nr;
         });
         const cxCols=normCxData.length?Object.keys(normCxData[0]):[];
-        syncLog(`3CX rows: ${normCxData.length}, cols: ${cxCols.join(', ')}`);
+        syncLog(`3CX rows: ${nc(normCxData.length)}, cols: ${cxCols.join(', ')}`);
         const hasValidCols=cxCols.some(c=>c.toLowerCase().includes('direction'))||
                             cxCols.some(c=>c.toLowerCase().includes('starttime'));
         if(normCxData.length&&hasValidCols){
@@ -5135,6 +5779,8 @@ async function autoLoad(){
     syncLog('autoLoad failed: '+err.message,'err');
     console.error('[AutoSync] เกิดข้อผิดพลาดในการโหลดข้อมูล:',err);
     showErr('ดึงข้อมูลอัตโนมัติจาก GitHub ไม่สำเร็จ — กรุณาอัปโหลดไฟล์ด้วยตนเอง หรือกด Demo เพื่อดูตัวอย่าง');
+    // เปิดจากไฟล์แล้วดึงข้อมูลไม่ได้จริง → แสดงกล่องแจ้งเตือนแบบเดิม
+    if(_openedAsFile){ showFileModeBlocked(); }
   } finally {
     // 4. โหลดเสร็จแล้วค่อยเริ่มนับถอยหลังรอบใหม่
     syncLog('Step 4: เริ่ม Auto-Refresh รอบถัดไป');
@@ -5460,8 +6106,8 @@ function buildKpiSnapshot(){
   const fcrPct=kpiCallN?Math.round(fcrN/kpiCallN*100):0,fmrPct=mailN?Math.round(fmrN/mailN*100):0;
   const abandonN=src.filter(r=>r.logType==='Abandon').length,pendingN=src.filter(r=>r.status==='Pending').length;
   const c2N=callSrc.filter(r=>r.caseLevel?.includes('Level 2')).length,c2Pct=kpiCallN?Math.round(c2N/kpiCallN*100):0;
-  const dfrom=document.getElementById('f-from')?.value||'',dto=document.getElementById('f-to')?.value||'',fm=document.getElementById('f-month')?.value||'ทั้งหมด';
-  const cx=getCX(dfrom,dto,SEL_DAY,fm);
+  const dfrom=document.getElementById('f-from')?.value||'',dto=document.getElementById('f-to')?.value||'',fm=(SEL_MONTHS.length?SEL_MONTHS.join(', '):'ทั้งหมด');
+  const cx=getCX(dfrom,dto,SEL_DAY,SEL_MONTHS);
   const deptMap={};src.forEach(r=>{if(r.typeDept)deptMap[r.typeDept]=(deptMap[r.typeDept]||0)+1;});
   return{template_type:_selectedTemplate,style_id:_selectedStyle,period:fm,totalCall:kpiCallN,totalMail:mailN,fcrPct,fmrPct,
     abandonPct:kpiCallN>0?(((cx.abn_3cx||abandonN)/kpiCallN)*100).toFixed(1):'—',
@@ -5512,7 +6158,95 @@ Pending: ${kpi.pendingCases} | C2: ${kpi.c2TransferPct}% | Top Dept: ${kpi.topDe
   const data=await resp.json();
   return JSON.parse((data.content?.find(b=>b.type==='text')?.text||'{}').replace(/```json|```/g,'').trim());
 }
+// ══════════════════════════════════════════════════════
+//  ใส่ , คั่นหลักพันให้ตัวเลขทุกจุดที่แสดงผล
+//  ทำงานหลังจากหน้าถูก render ใหม่ (จับด้วย MutationObserver)
+//  • แก้เฉพาะ text node ที่เป็น "ตัวเลขล้วน 4 หลักขึ้นไป" เท่านั้น
+//    → ไม่แตะวันที่ / ปี / รหัส (LOG-00647) / เปอร์เซ็นต์ / ทศนิยม เพราะไม่ใช่ตัวเลขล้วน
+//  • ข้าม script/style/input/select และทำงานซ้ำได้ (ค่าที่ใส่ , แล้วจะไม่เข้าเงื่อนไขอีก)
+// ══════════════════════════════════════════════════════
+const _FMT_SKIP=new Set(['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT','OPTION']);
+function formatThousandsIn(root){
+  if(!root||!root.ownerDocument&&root.nodeType!==9)return;
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{
+    acceptNode(n){
+      const t=n.nodeValue;
+      // เผื่อช่องว่าง/ขึ้นบรรทัดจาก template string (บางโหนดยาวถึง ~40 ตัวอักษร)
+      if(!t||t.length>80||!/^\s*\d{4,}\s*$/.test(t))return NodeFilter.FILTER_REJECT;
+      for(let el=n.parentElement; el; el=el.parentElement)
+        if(_FMT_SKIP.has(el.tagName))return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const hits=[];let node;
+  while((node=walker.nextNode()))hits.push(node);
+  hits.forEach(n=>{
+    const m=n.nodeValue.match(/^(\s*)(\d{4,})(\s*)$/);
+    if(m)n.nodeValue=m[1]+Number(m[2]).toLocaleString('en-US')+m[3];
+  });
+}
+// ══════════════════════════════════════════════════════
+//  จัดคอลัมน์ตัวเลขให้ชิดขวา (คอลัมน์ข้อความยังชิดซ้ายตามเดิม)
+//  ตัดสินจาก "เนื้อหาในคอลัมน์" ไม่ใช่ตำแหน่ง → ปลอดภัยกับทุกตาราง
+// ══════════════════════════════════════════════════════
+// true = ตัวเลข, false = ข้อความ, null = ไม่นับ (ว่าง / — / ไม่มีข้อมูล)
+function _cellIsNumeric(t){
+  if(t===null||t===undefined)return null;
+  let x=String(t).replace(/[▲▼↑↓⚠⏰⏳✓✅●•]/g,'').trim();
+  if(x===''||x==='—'||x==='-'||x==='–')return null;
+  x=x.replace(/(วัน|นาที|case|สาย|mail|min|%)/g,'').replace(/[,\s]/g,'');
+  if(x==='')return null;
+  return /^-?\d+(\.\d+)?$/.test(x);
+}
+function alignNumericColumns(root){
+  if(!root)return;
+  root.querySelectorAll('table').forEach(tb=>{
+    // ตารางที่กำหนดตำแหน่งไว้เองแล้ว (class="keep-align") → ไม่แตะ
+    if(tb.classList.contains('keep-align'))return;
+    const rows=[...(tb.tBodies||[])].flatMap(bd=>[...bd.rows]);
+    if(rows.length<2)return;
+    const nCols=Math.max(...rows.map(r=>r.cells.length));
+    for(let c=0;c<nCols;c++){
+      let num=0,tot=0;
+      rows.forEach(r=>{
+        const cell=r.cells[c];
+        if(!cell||cell.colSpan>1)return;
+        const v=_cellIsNumeric(cell.textContent);
+        if(v===null)return;
+        tot++; if(v)num++;
+      });
+      // คอลัมน์นี้เป็นตัวเลขจริง (อย่างน้อง 2 ช่อง และ ≥80% เป็นตัวเลข) → ชิดขวาทั้งคอลัมน์
+      if(tot>=2 && num/tot>=0.8){
+        rows.forEach(r=>{const cell=r.cells[c];if(cell&&cell.colSpan===1&&!cell.classList.contains('keep-align')&&cell.style.textAlign!=='right')cell.style.textAlign='right';});
+        [...(tb.tHead?tb.tHead.rows:[])].forEach(hr=>{
+          const h=hr.cells[c];
+          if(h&&h.colSpan===1&&!h.classList.contains('keep-align')&&h.style.textAlign!=='right')h.style.textAlign='right';
+        });
+      }
+    }
+  });
+}
+
+let _fmtObs=null,_fmtTimer=null;
+const _FMT_OPT={childList:true,subtree:true,characterData:true};
+// ปิด observer ระหว่างจัดรูปแบบ แล้วเปิดใหม่ → ไม่วนซ้ำ และไม่พลาดรอบ render ที่มาระหว่างทำงาน
+function _fmtPass(){
+  if(_fmtObs)_fmtObs.disconnect();
+  try{formatThousandsIn(document.body);}catch(e){}
+  try{alignNumericColumns(document.body);}catch(e){}
+  if(_fmtObs)_fmtObs.observe(document.body,_FMT_OPT);
+}
+function startThousandsFormatter(){
+  _fmtObs=new MutationObserver(()=>{
+    clearTimeout(_fmtTimer);
+    _fmtTimer=setTimeout(_fmtPass,40);
+  });
+  _fmtPass();
+  _fmtObs.observe(document.body,_FMT_OPT);
+}
+
 window.addEventListener('DOMContentLoaded',()=>{
+  try{startThousandsFormatter();}catch(e){console.warn(e);}
   try{autoLoad();}catch(e){console.warn(e);}
   try{startAutoRefresh();}catch(e){}
 });
@@ -5819,8 +6553,7 @@ async function doExportPPTX(){
       const _fmrP=_mailN>0?Math.round(_fmrN/_mailN*100):0;
       const _dfrom=document.getElementById('f-from')?.value||'';
       const _dto=document.getElementById('f-to')?.value||'';
-      const _fm=document.getElementById('f-month')?.value||'';
-      const _cx=getCX(_dfrom,_dto,SEL_DAY,_fm);
+      const _cx=getCX(_dfrom,_dto,SEL_DAY,SEL_MONTHS);
       const _slaPct=_cx.sla_pct;
       const _abnVal=_cx.abn_3cx!==null?_cx.abn_3cx:_cbN;
       const _abnPct=_kpiN>0?+(_abnVal/_kpiN*100).toFixed(1):0;
@@ -6453,25 +7186,37 @@ function manualRefresh(){
   autoLoad();
 }
 
-function makeMonthTable(elId,months,filterFn,resFnOrColor,accentColor){
+function makeMonthTable(elId,months,filterFn,resFnOrColor,accentColor,opts){
   // backward compat: resFnOrColor may be color string or resFn
   let resFn=filterFn, color=resFnOrColor;
   if(typeof resFnOrColor==='function'){resFn=resFnOrColor;color=accentColor;}
+  // opts.splitCallMail = true → แยก Avg. Resolution เป็น 2 คอลัมน์ (Call / Mail)
+  const splitRes=!!(opts&&opts.splitCallMail);
   const el=document.getElementById(elId);if(!el)return;
   const depts=[...new Set(FILTERED.map(r=>r.typeDept).filter(Boolean))].sort();
   const totals=months.map(m=>FILTERED.filter(r=>r.logMonth===m&&filterFn(r)).length);
   const lv1m=m=>FILTERED.filter(r=>r.logMonth===m&&filterFn(r)&&r.caseLevel?.includes('Level 1')).length;
   const lv2m=m=>FILTERED.filter(r=>r.logMonth===m&&filterFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length;
   const avgResM=m=>{const rts=FILTERED.filter(r=>r.logMonth===m&&resFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);return rts.length?avg(rts):null;};
-  let tbl=`<table class="m-tbl"><thead><tr><th>เดือน</th><th>รวม</th><th>Level 1</th><th>%Level 1</th><th>Level 2</th><th>%Level 2</th><th>Avg. Resolution Time</th>${depts.map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>`;
+  // ── แยก Call / Mail ──
+  // Call: ใช้ตัวกรองเดิม (ไม่นับ Transfer / Call Back / Mail)   Mail: ใช้ isMail เหมือนตารางฝั่ง Mail
+  const avgResCallM=m=>{const rts=FILTERED.filter(r=>r.logMonth===m&&resFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);return rts.length?avg(rts):null;};
+  const avgResMailM=m=>{const rts=FILTERED.filter(r=>r.logMonth===m&&isMail(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);return rts.length?avg(rts):null;};
+  // All = ประชากรเดียวกับคอลัมน์ "รวม" (Call + Mail)
+  const avgResAllM=m=>{const rts=FILTERED.filter(r=>r.logMonth===m&&filterFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);return rts.length?avg(rts):null;};
+  const resCell=v=>`<td style="color:var(--amber)">${nf(v)}${v!==null?' วัน':''}</td>`;
+  const resCellT=v=>`<td>${nf(v)}${v!==null?' วัน':''}</td>`;
+  let tbl=`<table class="m-tbl"><thead><tr><th>เดือน</th><th>รวม</th><th>FCR</th><th>%FCR</th><th>Non-FCR</th><th>%Non-FCR</th>`
+    +(splitRes?`<th>Avg. Resolution (Call)</th><th>Avg. Resolution (Mail)</th><th>Avg. Resolution (All)</th>`:`<th>Avg. Resolution Time</th>`)
+    +`${depts.map(d=>`<th>${d}</th>`).join('')}</tr></thead><tbody>`;
   months.forEach((m,i)=>{
     const tc=totals[i],l1=lv1m(m),l2=lv2m(m);const ar=avgResM(m);
     const prev=i>0?totals[i-1]:null;const arr=prev===null?'':tc>prev?'▲':tc<prev?'▼':'';
     const aC=prev===null?'':tc>prev?'#4ade80':tc<prev?'#f87171':'#94a3b8';
-    tbl+=`<tr><td style="font-weight:700;color:${color}">${m}</td><td style="font-weight:700">${tc} <span style="color:${aC};font-size:10px">${arr}</span></td><td style="color:var(--teal)">${l1}</td><td style="color:var(--gray);font-size:11px">${pct(l1,tc)}%</td><td style="color:var(--amber)">${l2}</td><td style="color:var(--gray);font-size:11px">${pct(l2,tc)}%</td><td style="color:var(--amber)">${nf(ar)}${ar!==null?' วัน':''}</td>${depts.map(d=>`<td>${FILTERED.filter(r=>r.logMonth===m&&filterFn(r)&&r.typeDept===d).length||'—'}</td>`).join('')}</tr>`;
+    tbl+=`<tr><td style="font-weight:700;color:${color}">${m}</td><td style="font-weight:700">${tc} <span style="color:${aC};font-size:10px">${arr}</span></td><td style="color:var(--teal)">${l1}</td><td style="color:var(--gray);font-size:11px">${pct(l1,tc)}%</td><td style="color:var(--amber)">${l2}</td><td style="color:var(--gray);font-size:11px">${pct(l2,tc)}%</td>${splitRes?(resCell(avgResCallM(m))+resCell(avgResMailM(m))+resCell(avgResAllM(m))):resCell(ar)}${depts.map(d=>`<td>${FILTERED.filter(r=>r.logMonth===m&&filterFn(r)&&r.typeDept===d).length||'—'}</td>`).join('')}</tr>`;
   });
-  const gTotal=FILTERED.filter(filterFn).length;const gLv1=FILTERED.filter(r=>filterFn(r)&&r.caseLevel?.includes('Level 1')).length;const gLv2=FILTERED.filter(r=>filterFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length;const gRes=FILTERED.filter(r=>resFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);
-  tbl+=`<tr class="m-total"><td>รวม</td><td>${gTotal}</td><td style="color:var(--teal)">${gLv1}</td><td style="color:var(--gray);font-size:11px">${pct(gLv1,gTotal)}%</td><td style="color:var(--amber)">${gLv2}</td><td style="color:var(--gray);font-size:11px">${pct(gLv2,gTotal)}%</td><td>${nf(gRes.length?avg(gRes):null)}${gRes.length?' วัน':''}</td>${depts.map(d=>`<td>${FILTERED.filter(r=>filterFn(r)&&r.typeDept===d).length}</td>`).join('')}</tr></tbody></table>`;
+  const gTotal=FILTERED.filter(filterFn).length;const gLv1=FILTERED.filter(r=>filterFn(r)&&r.caseLevel?.includes('Level 1')).length;const gLv2=FILTERED.filter(r=>filterFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length;const gRes=FILTERED.filter(r=>resFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);const gResCall=gRes;const gResMail=FILTERED.filter(r=>isMail(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);const gResAll=FILTERED.filter(r=>filterFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);
+  tbl+=`<tr class="m-total"><td>รวม</td><td>${gTotal}</td><td style="color:var(--teal)">${gLv1}</td><td style="color:var(--gray);font-size:11px">${pct(gLv1,gTotal)}%</td><td style="color:var(--amber)">${gLv2}</td><td style="color:var(--gray);font-size:11px">${pct(gLv2,gTotal)}%</td>${splitRes?(resCellT(gResCall.length?avg(gResCall):null)+resCellT(gResMail.length?avg(gResMail):null)+resCellT(gResAll.length?avg(gResAll):null)):resCellT(gRes.length?avg(gRes):null)}${depts.map(d=>`<td>${nc(FILTERED.filter(r=>filterFn(r)&&r.typeDept===d).length)}</td>`).join('')}</tr></tbody></table>`;
   el.innerHTML=tbl;
 }
 
@@ -6488,7 +7233,7 @@ function renderMonthly(){
   if(el_mail) el_mail.style.display=(MONTHLY_MODE==='mail')?'':'none';
   const ALL12=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   // ใช้ RAW (ไม่ filter เดือน) เพื่อแสดงทุกเดือน แต่ยังคง filter dept/level/mode
-  const fm=document.getElementById('f-month')?.value||'';
+  const fm=SEL_MONTHS.length===1?SEL_MONTHS[0]:'';   // ใช้ไฮไลท์เดือนบนแกน x เมื่อเลือกเดือนเดียว
   const fd=document.getElementById('f-dept')?.value||'';
   const fl=document.getElementById('f-level')?.value||'';
   const dfrom=document.getElementById('f-from')?.value||'';
@@ -6502,8 +7247,9 @@ function renderMonthly(){
   });
   const months=sortMonths([...new Set(ALL_FILTERED.map(r=>r.logMonth).filter(Boolean))]);
   if(!months.length){document.getElementById('page-monthly-inner').innerHTML='<div style="text-align:center;padding:40px;color:#64748b">ไม่มีข้อมูล — กรุณาอัปโหลดไฟล์ก่อน</div>';return;}
-  const SEL_M=fm; // เดือนที่เลือกใน filter bar
-  MONTHLY_SEL_M=SEL_M;
+  const SEL_M=fm; // เดือนที่เลือก (ค่าเดี่ยว — ใช้กับโค้ดเดิมบางส่วน)
+  // ไฮไลท์ทุกเดือนที่ติ๊กเลือกไว้บนแกน x ของกราฟ
+  MONTHLY_SEL_M=[...SEL_MONTHS];
 
   // CALL
   const callFn=r=>isTotalCall(r);
@@ -6512,14 +7258,43 @@ function renderMonthly(){
   const tc=m=>ALL_FILTERED.filter(r=>r.logMonth===m&&callFn(r)).length;
   const MNUM={'Jan':0,'Feb':1,'Mar':2,'Apr':3,'May':4,'Jun':5,'Jul':6,'Aug':7,'Sep':8,'Oct':9,'Nov':10,'Dec':11};
   const rr=m=>{if(!CX||!CX.loaded||!CX.daily)return null;const mn=MNUM[m];if(mn===undefined)return null;const ents=Object.entries(CX.daily).filter(([d])=>new Date(d).getMonth()===mn);const ok=ents.reduce((s,[,v])=>s+(v.sla_ok||0),0);const tot=ents.reduce((s,[,v])=>s+(v.sla_total||0),0);return tot>0?Math.round(ok/tot*100):null;};
-  const ab=m=>{if(!CX.loaded)return 0;const mn=MNUM[m];const ents=Object.entries(CX.daily).filter(([d])=>new Date(d).getMonth()===mn);return ents.reduce((s,[,v])=>s+(v.abn_3cx||0),0);};
+  // ── Abandon: เลือกแหล่งข้อมูลตามสถานะตัวกรองแผนก ──────────────────────
+  // 3CX ไม่มีข้อมูลแผนก ถ้ากรองแผนกแล้วยังใช้ 3CX ตัวเศษจะเป็นยอดรวมทุกแผนก
+  // ขณะที่ตัวส่วน (Total Call) ถูกกรอง → % พุ่งเกินจริง
+  // จึงสลับไปใช้ Abandon จาก Call Log (logType='Abandon') ซึ่งมีฟิลด์ typeDept
+  const hasDeptFilterM = SEL_DEPTS.length>0;
+  const ab3cx=m=>{if(!CX.loaded)return 0;const mn=MNUM[m];const ents=Object.entries(CX.daily).filter(([d])=>new Date(d).getMonth()===mn);return ents.reduce((s,[,v])=>s+(v.abn_3cx||0),0);};
+  const abLog=m=>ALL_FILTERED.filter(r=>r.logMonth===m&&r.logType==='Abandon').length;
+  const ab=m=>hasDeptFilterM?abLog(m):ab3cx(m);
   const ar=m=>{const rts=ALL_FILTERED.filter(r=>r.logMonth===m&&resCallFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);return rts.length?Math.round(avg(rts)*10)/10:0;};
+  // Avg Resolution Time ของกราฟ — ประชากรตามโหมดที่เลือก
+  //   โหมด Call  : resCallFn เดิม (ไม่นับ Transfer/Call Back/Mail แต่นับ Abandon — ตรงกับ Time Card)
+  //   โหมดทั้งหมด: resCallFn เดิม + เคส Mail
+  const arActive=m=>{
+    const rts=ALL_FILTERED.filter(r=>r.logMonth===m&&r.resolutionTime!==null
+        &&(resCallFn(r)||(MONTHLY_MODE==='all'&&isMail(r)))).map(r=>r.resolutionTime);
+    return rts.length?Math.round(avg(rts)*10)/10:0;
+  };
   const lv1c=m=>ALL_FILTERED.filter(r=>r.logMonth===m&&callFn(r)&&r.caseLevel?.includes('Level 1')).length;
-  const mFiltered=ALL_FILTERED; // แสดงภาพรวมทุกเดือนเสมอ
+  // ── การ์ด KPI ด้านบน: ถ้าเลือกเดือนบนแถบฟิลเตอร์ ให้สรุปเฉพาะเดือนนั้น ──
+  //    (กราฟ/ตารางด้านล่างยังแสดงทุกเดือนตามเดิม เพื่อให้เห็นแนวโน้ม)
+  // เลือก "ช่วงวันที่" จะมีลำดับความสำคัญเหนือ "เดือน" (การเลือกเดือนล้างช่วงวันที่อยู่แล้ว)
+  const hasRangeM = !!(dfrom||dto);
+  // เลือกได้หลายเดือน — ช่วงวันที่มีลำดับความสำคัญเหนือเดือน
+  const kpiMonths = (!hasRangeM && SEL_MONTHS.length)
+    ? SEL_MONTHS.filter(m=>months.includes(m)) : [];
+  // ALL_FILTERED กรองช่วงวันที่ให้แล้ว จึงเหลือแค่กรองเดือนเพิ่มเมื่อเลือกเดือน
+  const mFiltered = kpiMonths.length
+    ? ALL_FILTERED.filter(r=>kpiMonths.includes(r.logMonth)) : ALL_FILTERED;
   const totC=mFiltered.filter(callFn).length;
   const isAll=MONTHLY_MODE==='all';
-  const rrAll=CX.loaded&&CX.total.sla_pct!==null?CX.total.sla_pct:null;
-  const abnVal=CX.loaded?Object.values(CX.daily).reduce((s,v)=>s+(v.abn_3cx||0),0):'—';
+  // ค่าจาก 3CX (Abandon / Reach Rate) — ดึงตามขอบเขตที่กรองอยู่: ช่วงวันที่ → เดือน → ทั้งหมด
+  const cxScope = CX.loaded ? getCX(dfrom||null, dto||null, null, kpiMonths) : null;
+  const rrAll = (cxScope && cxScope.sla_pct!==null) ? cxScope.sla_pct : null;
+  // ยอด Abandon — กรองแผนก → นับจาก Call Log (มีข้อมูลแผนก), ไม่กรอง → ยอดจริงจาก 3CX
+  const abnVal=hasDeptFilterM
+    ? mFiltered.filter(r=>r.logType==='Abandon').length
+    : (cxScope ? cxScope.abn_3cx : '—');
   const rCol=rrAll===null?'#94a3b8':rrAll>=90?'#4ade80':rrAll>=75?'#fcd34d':'#f87171';
   const allRes=mFiltered.filter(r=>resCallFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);
 
@@ -6535,15 +7310,15 @@ function renderMonthly(){
       <div class="m-kpi mk-purple"><div class="mlabel">Total Mail</div><div class="mval">${totMailA.toLocaleString()}</div><div class="msub"></div></div>
       <div class="m-kpi mk-red"><div class="mlabel">Abandon</div><div class="mval">${abnVal}</div><div class="msub"></div></div>
       <div class="m-kpi mk-green"><div class="mlabel">Avg Reach Rate</div><div class="mval" style="color:${rCol}">${rrAll!==null?rrAll+'%':'N/A'}</div><div class="msub"></div></div>
-      <div class="m-kpi mk-teal"><div class="mlabel">1st Contact Resolution</div><div class="mval">${mFiltered.filter(r=>allFn(r)&&r.caseLevel?.includes('Level 1')).length}</div><div class="msub">${pct(mFiltered.filter(r=>allFn(r)&&r.caseLevel?.includes('Level 1')).length,totAll)}%</div></div>
+      <div class="m-kpi mk-teal"><div class="mlabel">1st Contact Resolution</div><div class="mval">${nc(mFiltered.filter(r=>allFn(r)&&r.caseLevel?.includes('Level 1')).length)}</div><div class="msub">${pct(mFiltered.filter(r=>allFn(r)&&r.caseLevel?.includes('Level 1')).length,totAll)}%</div></div>
       <div class="m-kpi mk-amber"><div class="mlabel">Avg. Resolution Time</div><div class="mval">${nf(allResAll.length?avg(allResAll):null)}</div><div class="msub">${allResAll.length?'วัน':''}</div></div>`;
   } else {
     document.getElementById('m-call-kpi').innerHTML=`
       <div class="m-kpi mk-blue"><div class="mlabel">Total Call</div><div class="mval">${totC.toLocaleString()}</div><div class="msub"></div></div>
       <div class="m-kpi mk-red"><div class="mlabel">Abandon</div><div class="mval">${abnVal}</div><div class="msub"></div></div>
       <div class="m-kpi mk-green"><div class="mlabel">Avg Reach Rate</div><div class="mval" style="color:${rCol}">${rrAll!==null?rrAll+'%':'N/A'}</div><div class="msub"></div></div>
-      <div class="m-kpi mk-teal"><div class="mlabel">1st Call Resolution</div><div class="mval">${mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 1')).length}</div><div class="msub">${pct(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 1')).length,totC)}%</div></div>
-      <div class="m-kpi mk-amber"><div class="mlabel">Non FCR</div><div class="mval">${mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length}</div><div class="msub">${pct(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length,totC)}%</div></div>
+      <div class="m-kpi mk-teal"><div class="mlabel">1st Call Resolution</div><div class="mval">${nc(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 1')).length)}</div><div class="msub">${pct(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 1')).length,totC)}%</div></div>
+      <div class="m-kpi mk-amber"><div class="mlabel">Non FCR</div><div class="mval">${nc(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length)}</div><div class="msub">${pct(mFiltered.filter(r=>callFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length,totC)}%</div></div>
       <div class="m-kpi mk-purple"><div class="mlabel">Avg. Resolution Time</div><div class="mval">${nf(allRes.length?avg(allRes):null)}</div><div class="msub">${allRes.length?'วัน':''}</div></div>`;
   }
   // ── Call/All charts ──
@@ -6554,28 +7329,54 @@ function renderMonthly(){
   const el_title2=document.getElementById('m-call-tbl-title');
   if(el_title1) el_title1.textContent=`Case Level ตามแผนก รายเดือน — ${modeLabel}`;
   if(el_title2) el_title2.textContent=`ตารางเปรียบเทียบรายเดือน — ${modeLabel}`;
-  const fcrPctM=m=>{const t=tc(m),l1=lv1c(m);return t>0?Math.round(l1/t*100):null;};
-  const abnPctM=m=>{const t=tc(m),a=ab(m);return t>0?Math.round(a/t*100):null;};
-  const nfcrPctM=m=>{const t=tc(m),l1=lv1c(m);return t>0?Math.round((t-l1)/t*100):null;};
-  makeAreaBarCombo('m-call-chart', ALL12, chartMonths, chartMonths.map(nfcrPctM), chartMonths.map(fcrPctM), '#FF8FAB', '#29C6C0');
+  // หัวเรื่อง section ตาราง Resolution Time ตามแผนก — เปลี่ยนตามโหมด
+  const el_resSec=document.getElementById('m-resdept-sec');
+  if(el_resSec) el_resSec.textContent=`Avg. Resolution Time ตามแผนก รายเดือน -${isAll?'Call+Mail':'Call'} (วัน)`;
+  // FCR% — ใช้ประชากรตามโหมดที่เลือก (ทั้งหมด = Call + Mail / Call = Call เท่านั้น)
+  const tcActive =m=>ALL_FILTERED.filter(r=>r.logMonth===m&&activeFn(r)).length;
+  const lv1Active=m=>ALL_FILTERED.filter(r=>r.logMonth===m&&activeFn(r)&&r.caseLevel?.includes('Level 1')).length;
+  const fcrPctM=m=>{const t=tcActive(m),l1=lv1Active(m);return t>0?Math.round(l1/t*100):null;};
+  // Abandon% — ตัวส่วนต้องเป็น "สายโทรเข้า" เท่านั้น (tc = Call) ไม่รวม Mail
+  const abnPctM=m=>{const t=tc(m),a=ab(m);return t>0?+(a/t*100).toFixed(1):null;};
+  const nfcrPctM=m=>{const t=tcActive(m),l1=lv1Active(m);return t>0?Math.round((t-l1)/t*100):null;};
+  // 1st Contact Resolution — แสดงเฉพาะ FCR% เป็นกราฟเส้น (รูปแบบเดียวกับกราฟ Abandon)
+  const el_fcrT=document.getElementById('m-fcr-title');
+  if(el_fcrT) el_fcrT.textContent=`1st Contact Resolution — ${modeLabel}`;
+  makeCleanBarChart('m-call-chart', ALL12, chartMonths,
+    [{label:'1st Contact Resolution (%)', data:chartMonths.map(fcrPctM), color:'#29C6C0'}], 100, '%');
+  // Abandon — ไม่แสดงป้ายแหล่งข้อมูล (แหล่งสลับอัตโนมัติอยู่เบื้องหลัง), ทศนิยม 1 ตำแหน่ง
+  const el_abnT=document.getElementById('m-abn-title');
+  if(el_abnT) el_abnT.textContent='Abandon';
+  const el_abnN=document.getElementById('m-abn-note');
+  if(el_abnN) el_abnN.innerHTML='';
   makeCleanBarChart('m-abn-chart', ALL12, chartMonths,
-    [{label:'Abandon % vs Total Call', data:chartMonths.map(abnPctM), color:'#EF7C6B'}], 100, '%');
+    [{label:'Abandon % vs Total Call', data:chartMonths.map(abnPctM), color:'#EF7C6B', dec:1}], 100, '%');
+
+  // Call Reach Rate — 3CX ไม่มีข้อมูลแผนก จึงแยกรายแผนกไม่ได้
+  // ยังแสดงกราฟของทุกแผนกตามเดิม แต่ติดป้ายบอกให้ชัดเมื่อมีการกรองแผนก
+  const el_rchN=document.getElementById('m-reach-note');
+  if(el_rchN) el_rchN.innerHTML=hasDeptFilterM
+    ? `<span style="font-size:10.5px;color:#B45309;background:#FEF3C7;border:1px solid #FDE68A;
+         border-radius:6px;padding:2px 8px;display:inline-block">⚠ ไม่สามารถแสดงข้อมูลรายแผนกได้ (3CX ไม่มีข้อมูลแผนก) — กราฟนี้เป็นภาพรวมทุกแผนก</span>`
+    : '';
   makeCleanBarChart('m-reach-chart', ALL12, chartMonths,
     [{label:'Call Reach Rate (%)', data:chartMonths.map(m=>rr(m)), color:'#0EA5E9'}], 100);
+  const el_arT=document.getElementById('m-res-title');
+  if(el_arT) el_arT.textContent=`Avg. Resolution Time — ${modeLabel}`;
   makeCleanBarChart('m-res-call-chart', ALL12, chartMonths,
-    [{label:'Avg Resolution Time', data:chartMonths.map(ar), color:'#FFA940'}], null, 'วัน');
+    [{label:'Avg Resolution Time', data:chartMonths.map(arActive), color:'#FFA940', dec:1}], null, 'วัน');
   makeDeptLevelChart('m-call-level-chart',chartMonths,activeFn,'call');
   makeDeptLevelTable('m-call-dept-level-tbl',chartMonths,activeFn);
   makeResDeptChart('m-call-res-dept-chart',chartMonths,activeFn);
   makeRespDeptChart('m-call-resp-dept-chart',chartMonths,activeFn);
-  makeMonthTable('m-call-tbl',chartMonths,activeFn,resCallFn,'#29C6C0');
+  makeMonthTable('m-call-tbl',chartMonths,activeFn,resCallFn,'#29C6C0',{splitCallMail:isAll});
   const allDepts=[...new Set(FILTERED.map(r=>r.typeDept).filter(Boolean))].sort();
   ['m-call-dept-sel','m-mail-dept-sel'].forEach(id=>{const sel=document.getElementById(id);if(!sel)return;const cur=sel.value;sel.innerHTML='<option value="">ทุกแผนก</option>'+allDepts.map(d=>`<option${d===cur?' selected':''}>${d}</option>`).join('');});
   renderTop10Issue('call');
 
   // MAIL
   const mailFn=r=>isMail(r);
-  const mFilteredM=ALL_FILTERED; // แสดงภาพรวมทุกเดือนเสมอ
+  const mFilteredM = kpiMonths.length ? ALL_FILTERED.filter(r=>kpiMonths.includes(r.logMonth)) : ALL_FILTERED;
   const totM=mFilteredM.filter(mailFn).length;
   const totMref=mFilteredM.filter(r=>r.logType==='Mail'&&r._referredMail).length;
   const allResM=mFilteredM.filter(r=>mailFn(r)&&r.resolutionTime!==null).map(r=>r.resolutionTime);
@@ -6583,14 +7384,18 @@ function renderMonthly(){
   const lv1m=m=>ALL_FILTERED.filter(r=>r.logMonth===m&&mailFn(r)&&r.caseLevel?.includes('Level 1')).length;
   document.getElementById('m-mail-kpi').innerHTML=`
     <div class="m-kpi mk-purple"><div class="mlabel">Total Mail</div><div class="mval">${totM.toLocaleString()}</div><div class="msub"></div></div>
-    <div class="m-kpi mk-teal"><div class="mlabel">1st Mail Resolution</div><div class="mval">${mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 1')).length}</div><div class="msub">${pct(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 1')).length,totM)}%</div></div>
-    <div class="m-kpi mk-amber"><div class="mlabel">Non FCR</div><div class="mval">${mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length}</div><div class="msub">${pct(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length,totM)}%</div></div>
+    <div class="m-kpi mk-teal"><div class="mlabel">1st Mail Resolution</div><div class="mval">${nc(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 1')).length)}</div><div class="msub">${pct(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 1')).length,totM)}%</div></div>
+    <div class="m-kpi mk-amber"><div class="mlabel">Non FCR</div><div class="mval">${nc(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length)}</div><div class="msub">${pct(mFilteredM.filter(r=>mailFn(r)&&r.caseLevel?.includes('Level 2')&&!r._referredMail).length,totM)}%</div></div>
     <div class="m-kpi mk-green"><div class="mlabel">Avg. Resolution Time</div><div class="mval">${nf(allResM.length?avg(allResM):null)}</div><div class="msub">${allResM.length?'วัน':''}</div></div>`;
   const fmrPctM=m=>{const t=ALL_FILTERED.filter(r=>r.logMonth===m&&mailFn(r)).length;const l1=lv1m(m);return t>0?Math.round(l1/t*100):null;};
   const nfmrPctM=m=>{const t=ALL_FILTERED.filter(r=>r.logMonth===m&&mailFn(r)).length;const l1=lv1m(m);return t>0?Math.round((t-l1)/t*100):null;};
-  makeAreaBarCombo('m-mail-chart', ALL12, chartMonths, chartMonths.map(nfmrPctM), chartMonths.map(fmrPctM), '#FF8FAB', '#8B7CF8');
+  // 1st Contact Resolution (Mail) — เส้นเดียว แสดงเฉพาะ Mail (mailFn) รูปแบบเดียวกับฝั่ง Call
+  const el_fmrT=document.getElementById('m-mail-fcr-title');
+  if(el_fmrT) el_fmrT.textContent='1st Contact Resolution — Mail';
+  makeCleanBarChart('m-mail-chart', ALL12, chartMonths,
+    [{label:'1st Contact Resolution (%) — Mail', data:chartMonths.map(fmrPctM), color:'#8B7CF8'}], 100, '%');
   makeCleanBarChart('m-res-mail-chart', ALL12, chartMonths,
-    [{label:'Avg Resolution Time', data:chartMonths.map(arM), color:'#FFA940'}], null, 'วัน');
+    [{label:'Avg Resolution Time', data:chartMonths.map(arM), color:'#FFA940', dec:1}], null, 'วัน');
   makeDeptLevelChart('m-mail-level-chart',chartMonths,mailFn,'mail');
   makeDeptLevelTable('m-mail-dept-level-tbl',chartMonths,mailFn);
   makeResDeptChart('m-mail-res-dept-chart',chartMonths,mailFn);
@@ -6737,10 +7542,10 @@ function makeResDeptChart(elId, months, filterFn){
       const label=v===null?'—':v===0?'0 วัน':`${v} วัน`;
       const isYTD=i===0;
       html+=`<td style="text-align:center;padding:3px">
-        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 4px;
+        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 2px;
           font-size:${isYTD?'13':'12'}px;font-weight:${isYTD?700:600};
           border:${isYTD?`2px solid ${accentColor}40`:'1.5px solid rgba(0,0,0,.04)'};
-          min-height:36px;display:flex;align-items:center;justify-content:center">
+          height:36px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">
           ${label}
         </div>
       </td>`;
@@ -6817,10 +7622,10 @@ function makePendDeptChart(elId, months, filterFn){
       const label=v===null?'—':v===0?'0 วัน':`${v} วัน`;
       const isYTD=i===0;
       html+=`<td style="text-align:center;padding:3px">
-        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 4px;
+        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 2px;
           font-size:${isYTD?'13':'12'}px;font-weight:${isYTD?700:600};
           border:${isYTD?`2px solid ${accentColor}60`:'1.5px solid rgba(0,0,0,.04)'};
-          min-height:36px;display:flex;align-items:center;justify-content:center">
+          height:36px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">
           ${label}
         </div>
       </td>`;
@@ -6862,7 +7667,7 @@ function makeRespDeptChart(elId, months, filterFn){
   const heatColor=v=>{
     if(v===null)return{bg:'#F4F5F7',text:'#CBD5E1'};
     if(v===0)  return{bg:'#E0FAF9',text:'#29C6C0'};
-    if(v<=1)   return{bg:'#5B8DEF',text:'#fff'};
+    if(v<=1)   return{bg:'#29C6C0',text:'#fff'};   // ≤1 วัน = เขียว (teal) ให้ตรงกับตารางซ้าย
     if(v<=3)   return{bg:'#FFA940',text:'#fff'};
     if(v<=7)   return{bg:'#FF8C00',text:'#fff'};
     return{bg:'#FF6B6B',text:'#fff'};
@@ -6899,10 +7704,10 @@ function makeRespDeptChart(elId, months, filterFn){
       const label=v===null?'—':v===0?'0 วัน':`${v} วัน`;
       const isYTD=i===0;
       html+=`<td style="text-align:center;padding:3px">
-        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 4px;
+        <div style="background:${bg};color:${text};border-radius:8px;padding:6px 2px;
           font-size:${isYTD?'13':'12'}px;font-weight:${isYTD?700:600};
           border:${isYTD?`2px solid ${accentColor}60`:'1.5px solid rgba(0,0,0,.04)'};
-          min-height:36px;display:flex;align-items:center;justify-content:center">
+          height:36px;display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden">
           ${label}
         </div>
       </td>`;
@@ -6913,9 +7718,10 @@ function makeRespDeptChart(elId, months, filterFn){
   html+=`</tbody></table></div>`;
   html+=`<div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap">
     ${[
-      {bg:'#5B8DEF',text:'#fff',label:'≤ 1 วัน'},
+      {bg:'#29C6C0',text:'#fff',label:'≤ 1 วัน (ดี)'},
       {bg:'#FFA940',text:'#fff',label:'≤ 3 วัน'},
-      {bg:'#FF6B6B',text:'#fff',label:'> 7 วัน'},
+      {bg:'#FF8C00',text:'#fff',label:'≤ 7 วัน'},
+      {bg:'#FF6B6B',text:'#fff',label:'> 7 วัน (นาน)'},
       {bg:'#F4F5F7',text:'#CBD5E1',label:'ไม่มีข้อมูล'},
     ].map(l=>`<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#374151">
       <div style="width:14px;height:14px;background:${l.bg};border-radius:3px;flex-shrink:0"></div>
@@ -7039,8 +7845,8 @@ function makeDeptLevelChart(elId, months, filterFn, type){
           cursor:default" title="${pct!==null?`FCR: ${pct}% | Non-FCR: ${nonPct}%`:'ไม่มีข้อมูล'}">
           ${pct!==null?pct+'%':'—'}
         </div>
-        ${pct!==null&&nonPct>0?`<div style="text-align:center;font-size:9px;font-weight:600;
-          color:#FF8FAB;margin-top:2px;display:flex;align-items:center;justify-content:center;gap:2px"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.79 2 2 3.79 2 6s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm.5 6h-1V5.5h1V8zm0-3h-1V4h1v1z" fill="#FF8FAB"/></svg>${nonPct}%</div>`:''}
+        ${pct!==null?`<div style="text-align:center;font-size:9px;font-weight:600;
+          color:${nonPct>0?'#FF8FAB':'#CBD5E1'};margin-top:2px;display:flex;align-items:center;justify-content:center;gap:2px"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.79 2 2 3.79 2 6s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm.5 6h-1V5.5h1V8zm0-3h-1V4h1v1z" fill="${nonPct>0?'#FF8FAB':'#CBD5E1'}"/></svg>${nonPct}%</div>`:`<div style="text-align:center;font-size:9px;font-weight:600;margin-top:2px;visibility:hidden">0%</div>`}
       </div>`;
     });
     html+=`</div>`;
@@ -7060,8 +7866,8 @@ function makeDeptLevelChart(elId, months, filterFn, type){
         font-size:15px;font-weight:800;line-height:1">
         ${pct!==null?pct+'%':'—'}
       </div>
-      ${pct!==null&&nonPct>0?`<div style="text-align:center;font-size:9px;font-weight:600;
-        color:#FF8FAB;margin-top:2px;display:flex;align-items:center;justify-content:center;gap:2px"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.79 2 2 3.79 2 6s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm.5 6h-1V5.5h1V8zm0-3h-1V4h1v1z" fill="#FF8FAB"/></svg>${nonPct}%</div>`:''}
+      ${pct!==null?`<div style="text-align:center;font-size:9px;font-weight:600;
+        color:${nonPct>0?'#FF8FAB':'#CBD5E1'};margin-top:2px;display:flex;align-items:center;justify-content:center;gap:2px"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.79 2 2 3.79 2 6s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm.5 6h-1V5.5h1V8zm0-3h-1V4h1v1z" fill="${nonPct>0?'#FF8FAB':'#CBD5E1'}"/></svg>${nonPct}%</div>`:`<div style="text-align:center;font-size:9px;font-weight:600;margin-top:2px;visibility:hidden">0%</div>`}
     </div>`;
   });
   html+=`</div>`;
@@ -7100,8 +7906,8 @@ function makeDeptLevelTable(elId, months, filterFn){
         <th colspan="4" style="text-align:center;color:#1e40af;border-left:2px solid #e2e8f0">รวมทั้งปี</th>
       </tr>
       <tr>
-        ${months.map(()=>`<th style="color:${C1};border-left:2px solid #e2e8f0">Level 1</th><th style="color:#94a3b8">%Level 1</th><th style="color:${C2}">Level 2</th><th style="color:#94a3b8">%Level 2</th>`).join('')}
-        <th style="color:#1e40af;border-left:2px solid #e2e8f0">Level 1</th><th style="color:#94a3b8">%Level 1</th><th style="color:${C2}">Level 2</th><th style="color:#94a3b8">%Level 2</th>
+        ${months.map(()=>`<th style="color:${C1};border-left:2px solid #e2e8f0">FCR</th><th style="color:#94a3b8">%FCR</th><th style="color:${C2}">Non-FCR</th><th style="color:#94a3b8">%Non-FCR</th>`).join('')}
+        <th style="color:#1e40af;border-left:2px solid #e2e8f0">FCR</th><th style="color:#94a3b8">%FCR</th><th style="color:${C2}">Non-FCR</th><th style="color:#94a3b8">%Non-FCR</th>
       </tr>
     </thead><tbody>`;
 
