@@ -17324,3 +17324,5 @@ StartTime,Direction,TalkingDuration,Answered,CallType,CallID,Status,To
 2026-09-08T15:09:03.743412+07:00,Inbound Queue,PT3M0.64772S,True,Queue,1,Unanswered,8196
 2026-09-08T14:52:12.207873+07:00,Inbound,PT44M1.064985S,True,Extension,1,Answered,0113
 2026-09-08T14:50:41.593829+07:00,Inbound Queue,PT1M33.333537S,True,Queue,1,Waiting,8196
+2026-09-08T18:01:44.636555+07:00,Internal,PT3.490653S,True,System,1,Answered,*31
+2026-09-08T17:08:00.956868+07:00,Internal,PT3.412248S,True,System,1,Answered,*31
